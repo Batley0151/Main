@@ -115,17 +115,76 @@
 </head>
 <body>
 
-  <div class="container">
-    <div class="logo">
-  <img src="Big Joes 2.svg" alt="Big Joe's Logo" width="80" height="60">
-  <h1>Big Joe’s</h1>
-</div>
-    <div class="contact">
-      <span>T. 07516 167737</span>
+<div class="container">
+  <div class="logo">
+    <img src="Big Joes 2.svg" alt="Big Joe's Logo" class="logo-img">
+    <div class="logo-text">
+      <span class="big">Big</span>
+      <span class="joes">Joe’s</span>
+    </div>
+  </div>
+
+  <div class="contact">
+    <p>
+      <span>T. 07516 167737</span> | 
       <span>E. bigjoesalcafe@gmail.com</span><br>
       <span>106 Upper Commercial Street, WF17 5DP</span><br>
-      <span><em>(Opposite Batley Post Office)</em></span>
-    </div>
+      <em>(Opposite Batley Post Office)</em>
+    </p>
+  </div>
+</div>
+
+<style>
+  .container {
+    text-align: center;
+    padding: 40px 20px;
+    font-family: "Segoe UI", "Helvetica Neue", sans-serif;
+  }
+
+  .logo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+
+  .logo-img {
+    width: 120px;  /* bigger logo */
+    height: auto;
+    margin-bottom: 10px;
+  }
+
+  .logo-text {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 2.5rem;
+    line-height: 1.2;
+  }
+
+  .logo-text .big {
+    font-weight: 700;
+    color: #0d47a1; /* dark blue */
+    font-family: "Nunito", "Segoe UI Rounded", sans-serif;
+  }
+
+  .logo-text .joes {
+    font-weight: 400;
+    color: #1976d2; /* regular blue */
+    font-family: "Nunito", "Segoe UI Rounded", sans-serif;
+  }
+
+  .contact {
+    font-size: 1rem;
+    color: #1565c0; /* blue theme */
+    line-height: 1.6;
+  }
+
+  .contact em {
+    color: #0d47a1;
+    font-style: italic;
+  }
+</style>
 
     <!-- BIG JOE’S BREAKFAST -->
     <div class="section-title">BIG JOE’S BREAKFAST SERVED ALL DAY</div>
