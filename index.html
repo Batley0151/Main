@@ -34,7 +34,7 @@
       
       /* Layered background: translucent white overlay + faux-wood SVG tile */
       background-image:
-        linear-gradient(rgba(255,255,255,0.95), rgba(255,255,255,0.95)),
+        linear-gradient(rgba(255,255,255,0.05), rgba(255,255,255,0.05)),
         url("data:image/svg+xml,%3Csvg width='800' height='200' viewBox='0 0 800 200' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='800' height='200' fill='%23fff'/%3E%3Cg opacity='0.3'%3E%3Cpath d='M0 100 Q100 120 200 100 T400 100 T600 100 T800 100' stroke='%23d0d0d0' stroke-width='4' fill='none'/%3E%3Cpath d='M0 120 Q80 140 160 120 T320 120 T480 120 T640 120 T800 120' stroke='%23d0d0d0' stroke-width='2' fill='none'/%3E%3Cpath d='M0 80 Q120 60 240 80 T480 80 T720 80 T800 80' stroke='%23d0d0d0' stroke-width='2' fill='none'/%3E%3Cpath d='M100 150 Q200 170 300 150 T500 150 T700 150' stroke='%23d0d0d0' stroke-width='2' fill='none'/%3E%3Cpath d='M400 40 Q420 60 440 40 T480 40 T520 40' stroke='%23d0d0d0' stroke-width='1.5' fill='none'/%3E%3Cellipse cx='600' cy='60' rx='30' ry='10' stroke='%23d0d0d0' stroke-width='1.5' fill='none'/%3E%3Cellipse cx='200' cy='60' rx='20' ry='7' stroke='%23d0d0d0' stroke-width='1' fill='none'/%3E%3Cellipse cx='700' cy='170' rx='15' ry='5' stroke='%23d0d0d0' stroke-width='1' fill='none'/%3E%3Cellipse cx='100' cy='170' rx='10' ry='4' stroke='%23d0d0d0' stroke-width='1' fill='none'/%3E%3Cpath d='M300 180 Q350 190 400 180' stroke='%23d0d0d0' stroke-width='1' fill='none'/%3E%3Cpath d='M500 180 Q550 190 600 180' stroke='%23d0d0d0' stroke-width='1' fill='none'/%3E%3C/g%3E%3C/svg%3E");
       background-repeat: repeat-x; /* Repeat horizontally */
       background-position: top center;
@@ -73,19 +73,6 @@
       margin: 0 auto;
     }
 
-    /* Hidden h1 for SEO / accessibility if logo is purely graphical */
-    .sr-only {
-      position: absolute;
-      width: 1px;
-      height: 1px;
-      padding: 0;
-      margin: -1px;
-      overflow: hidden;
-      clip: rect(0 0 0 0);
-      white-space: nowrap;
-      border: 0;
-    }
-
     /* Contact information */
     .contact {
       text-align: center;
@@ -104,7 +91,17 @@
       display: block;
       margin-top: 0.4rem;
     }
-
+    
+<iframe
+  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2413.8903602188094!2d-1.636600384375636!3d53.714699799999996!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x487be1a8cfb38125%3A0xaab123b293042de0!2sBig%20Joe's%20Cafe!5e0!3m2!1sen!2suk!4v1704903845123!5m2!1sen!2suk"
+  width="600"
+  height="450"
+  style="border:0;"
+  allowfullscreen=""
+  loading="lazy"
+  referrerpolicy="no-referrer">
+</iframe>
+    
     /* General menu section title styling (gradient) */
     .section-title {
       background: linear-gradient(90deg, var(--dark-blue) 80%, var(--accent-blue) 100%);
