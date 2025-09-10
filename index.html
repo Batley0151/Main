@@ -6,6 +6,55 @@
   <title>Big Joe’s Café Menu</title>
 
   <style>
+  .top-row{
+      display:flex;
+      align-items:flex-start;
+      gap:16px;
+      margin-bottom:18px;
+    }
+
+    /* logo box */
+    .logo-box{
+      flex:0 0 48%; /* logo column approx half on desktop */
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+    .logo-img{
+      max-width:100%;
+      width:100%;
+      max-width:480px; /* control maximum size */
+      height:auto;
+      display:block;
+    }
+
+    /* map box */
+    .map-box{
+      flex:1;
+      min-width:260px;
+      height:100%;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+    .map-frame{
+      width:100%;
+      height:320px;
+      border:0;
+      border-radius:6px;
+      box-shadow: 0 6px 14px rgba(0,0,0,0.08);
+      display:block;
+    }
+
+    /* contact block (under top-row) */
+    .contact{
+      text-align:center;
+      color:var(--dark-blue);
+      margin-bottom:16px;
+      line-height:1.4;
+    }
+    .contact em{ color:var(--accent-blue); display:block; margin-top:6px; font-style:normal; }
+
     /* CSS Variables for consistent styling */
     :root {
       --dark-blue: #0a4a7c; /* Primary dark blue from original image */
@@ -278,18 +327,33 @@
 </head>
 <body>
   <div class="container">
-    <header class="site-header" role="banner">
-      <!-- Visible logo: your uploaded file "Big Joe 2.png" -->
-      <img src="Big Joe 2.png" alt="Big Joe's Café logo" class="logo-img">
-      <!-- Hidden heading for accessibility / SEO -->
-      <h1 class="sr-only">Big Joe’s Café Menu</h1>
-    </header>
 
-    <div class="contact" role="contentinfo">
+    <!-- top row: logo (left) and map (right) -->
+    <div class="top-row">
+      <div class="logo-box" aria-hidden="false">
+        <!-- visible logo; adjust filename if needed -->
+        <img src="Big Joe 2.png" alt="Big Joe's Café logo" class="logo-img">
+      </div>
+
+      <div class="map-box" aria-hidden="false">
+        <!-- Google Maps iframe, no-referrer for privacy -->
+        <iframe
+          class="map-frame"
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2413.8903602188094!2d-1.636600384375636!3d53.714699799999996!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x487be1a8cfb38125%3A0xaab123b293042de0!2sBig%20Joe's%20Cafe!5e0!3m2!1sen!2suk!4v1704903845123!5m2!1sen!2suk"
+          loading="lazy"
+          allowfullscreen
+          referrerpolicy="no-referrer"
+          title="Big Joe's Cafe location on Google Maps"></iframe>
+      </div>
+    </div>
+
+    <!-- contact -->
+    <div class="contact">
       <p>
         <span>T. 07516 167737</span> |
-        <span>E. bigjoesa1cafe@gmail.com</span><br>
+        <span>E. bigjoesalcafe@gmail.com</span><br>
         <span>106 Upper Commercial Street, WF17 5DP</span><br>
+        <em>(Opposite Batley Post Office)</em>
       </p>
     </div>
 
