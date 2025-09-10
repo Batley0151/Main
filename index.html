@@ -6,148 +6,277 @@
   <title>Big Joe’s Café Menu</title>
 
   <style>
-    :root{
-      --dark-blue: #005a9c;
-      --mid-blue:  #1565c0;
-      --light-blue:#00a9c0;
-      --text-colour:#333;
-      --container-width:760px; /* uniform narrow width */
-      --section-gap:1.6rem;
-      --border-colour:#ddd;
-      --shadow: 0 6px 18px rgba(0,0,0,0.06);
+    /* CSS Variables for consistent styling */
+    :root {
+      --dark-blue: #0a4a7c; /* Primary dark blue from original image */
+      --accent-blue: #1bbbe2; /* Accent bright blue from original image */
+      --text-colour: #333;
+      --container-width: 800px; /* Slightly wider for better content distribution */
+      --section-gap: 1.8rem;
+      --border-colour: #e0e0e0; /* Lighter border for clean look */
+      --shadow: 0 8px 24px rgba(0, 0, 0, 0.08); /* Stronger, softer shadow */
+      --light-bg: #fdfdfd; /* A very light off-white for elements */
     }
 
     /* Reset & basics */
-    *{box-sizing:border-box}
-    html,body{height:100%}
-    body{
-      margin:0;
+    * {
+      box-sizing: border-box;
+    }
+    html, body {
+      height: 100%;
+    }
+    body {
+      margin: 0;
       font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
-      line-height:1.45;
-      color:var(--text-colour);
-      background-color:#f7f7f7;
-
-      /* layered background: faint white overlay + faux-wood tile */
+      line-height: 1.5;
+      color: var(--text-colour);
+      background-color: #f7f7f7;
+      
+      /* Layered background: translucent white overlay + faux-wood SVG tile */
       background-image:
-        linear-gradient(rgba(255,255,255,0.82), rgba(255,255,255,0.82)),
-        url('faux_wood_horizontal.png'); /* large tile by default */
-      background-repeat: repeat-x;
+        linear-gradient(rgba(255,255,255,0.95), rgba(255,255,255,0.95)),
+        url("data:image/svg+xml,%3Csvg width='800' height='200' viewBox='0 0 800 200' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='800' height='200' fill='%23fff'/%3E%3Cg opacity='0.3'%3E%3Cpath d='M0 100 Q100 120 200 100 T400 100 T600 100 T800 100' stroke='%23d0d0d0' stroke-width='4' fill='none'/%3E%3Cpath d='M0 120 Q80 140 160 120 T320 120 T480 120 T640 120 T800 120' stroke='%23d0d0d0' stroke-width='2' fill='none'/%3E%3Cpath d='M0 80 Q120 60 240 80 T480 80 T720 80 T800 80' stroke='%23d0d0d0' stroke-width='2' fill='none'/%3E%3Cpath d='M100 150 Q200 170 300 150 T500 150 T700 150' stroke='%23d0d0d0' stroke-width='2' fill='none'/%3E%3Cpath d='M400 40 Q420 60 440 40 T480 40 T520 40' stroke='%23d0d0d0' stroke-width='1.5' fill='none'/%3E%3Cellipse cx='600' cy='60' rx='30' ry='10' stroke='%23d0d0d0' stroke-width='1.5' fill='none'/%3E%3Cellipse cx='200' cy='60' rx='20' ry='7' stroke='%23d0d0d0' stroke-width='1' fill='none'/%3E%3Cellipse cx='700' cy='170' rx='15' ry='5' stroke='%23d0d0d0' stroke-width='1' fill='none'/%3E%3Cellipse cx='100' cy='170' rx='10' ry='4' stroke='%23d0d0d0' stroke-width='1' fill='none'/%3E%3Cpath d='M300 180 Q350 190 400 180' stroke='%23d0d0d0' stroke-width='1' fill='none'/%3E%3Cpath d='M500 180 Q550 190 600 180' stroke='%23d0d0d0' stroke-width='1' fill='none'/%3E%3C/g%3E%3C/svg%3E");
+      background-repeat: repeat-x; /* Repeat horizontally */
       background-position: top center;
-      background-size: auto 280px; /* vertical scale of the tile */
-      padding:2rem 1rem;
-      display:flex;
-      justify-content:center;
+      background-size: auto 240px; /* Adjust vertical scale of the tile */
+      padding: 2rem 1rem;
+      display: flex;
+      justify-content: center;
     }
 
-    /* Use the smaller tile on narrow viewports (if you prefer) */
-    @media (max-width:900px){
-      body{
-        background-image:
-          linear-gradient(rgba(255,255,255,0.86), rgba(255,255,255,0.86)),
-          url('faux_wood_horizontal_1200x240.png');
-        background-size: auto 200px;
+    /* Container for the menu content */
+    .container {
+      width: 100%;
+      max-width: var(--container-width);
+      background: rgba(255, 255, 255, 0.98);
+      padding: 1.5rem;
+      border: 1px solid var(--border-colour);
+      box-shadow: var(--shadow);
+      border-radius: 8px;
+    }
+
+    /* Header / logo section */
+    .site-header {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.8rem;
+      margin-bottom: 1.5rem;
+    }
+
+    /* Visible logo PNG */
+    .logo-img {
+      width: 100%; /* Make it fill the available width up to max-width */
+      max-width: 500px; /* Larger max width for the logo */
+      height: auto;
+      display: block;
+      margin: 0 auto;
+    }
+
+    /* Hidden h1 for SEO / accessibility if logo is purely graphical */
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0 0 0 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    /* Contact information */
+    .contact {
+      text-align: center;
+      color: var(--dark-blue);
+      font-size: 0.95rem;
+      margin-bottom: 1.8rem;
+      line-height: 1.5;
+    }
+    .contact span {
+      display: inline-block;
+      margin: 0 0.4rem;
+    }
+    .contact em {
+      color: var(--accent-blue);
+      font-style: normal; /* Remove default italic for better readability */
+      display: block;
+      margin-top: 0.4rem;
+    }
+
+    /* General menu section title styling (gradient) */
+    .section-title {
+      background: linear-gradient(90deg, var(--dark-blue) 80%, var(--accent-blue) 100%);
+      color: #fff;
+      padding: 0.5rem 1rem;
+      margin: var(--section-gap) 0 1rem;
+      font-size: 1.15rem;
+      font-weight: 700;
+      border-radius: 4px;
+      display: inline-block; /* Allows for natural width */
+      letter-spacing: 0.5px;
+    }
+
+    /* Menu list styles */
+    .menu-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .menu-list li {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start; /* Align text at the top for multi-line items */
+      gap: 0.8rem;
+      padding: 0.5rem 0;
+      border-bottom: 1px dotted var(--border-colour);
+      font-size: 0.95rem;
+    }
+    .menu-list li:last-child {
+      border-bottom: none;
+    }
+    .menu-list li > div { /* For items with name and description */
+      flex-grow: 1;
+    }
+
+    .item-name {
+      font-weight: 600;
+      color: var(--dark-blue);
+      display: block;
+      margin-bottom: 0.2em; /* Small space below item name if description follows */
+    }
+    .item-description, .item-note {
+      font-size: 0.88rem;
+      color: #555;
+      display: block; /* Ensure it starts on a new line */
+    }
+    .price {
+      white-space: nowrap;
+      font-weight: 700;
+      color: var(--accent-blue);
+      margin-left: auto; /* Push price to the right */
+    }
+    .mega-price {
+      font-size: 0.85em; /* Slightly smaller for 'Mega' */
+      opacity: 0.8;
+      margin-left: 0.4em;
+    }
+
+    /* Special styles for Kids Meals section */
+    .kids-meals-box {
+      background-color: #eaf6fb; /* Light blue background */
+      border: 1px solid #cce7f5;
+      border-radius: 5px;
+      padding: 1rem 1.2rem;
+      margin-top: 1rem; /* Adjust margin after section title */
+      margin-bottom: var(--section-gap);
+    }
+    .kids-meals-box em {
+      display: block;
+      font-style: normal;
+      font-weight: 600;
+      color: var(--accent-blue);
+      margin-bottom: 0.5rem;
+    }
+    .kids-meals-box strong {
+      color: var(--dark-blue);
+      display: block;
+      margin-bottom: 0.3rem;
+    }
+    .kids-meals-box ul {
+      margin: 0;
+      padding: 0;
+      list-style: none; /* Remove default bullet points for simple lists */
+      display: grid; /* Use grid for internal columns within kids meals */
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 0.5rem 1.5rem;
+    }
+    .kids-meals-box ul li {
+      padding: 0;
+      border-bottom: none;
+      font-size: 0.9rem;
+    }
+
+    /* Responsive grid columns */
+    .columns {
+      display: grid;
+      gap: 1.5rem; /* Gap between columns */
+      margin-top: var(--section-gap);
+    }
+    .columns.two {
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    }
+    .columns.three {
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    }
+    .columns.four {
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    }
+
+    /* Sub-headers within lists (e.g., "EXTRAS") */
+    .menu-subheader {
+      font-weight: 700;
+      color: var(--dark-blue);
+      margin-top: 1rem;
+      margin-bottom: 0.5rem;
+      padding-top: 0.5rem;
+      border-top: 1px dotted var(--border-colour); /* Separator for sub-sections */
+    }
+    .menu-subheader:first-child {
+        margin-top: 0;
+        padding-top: 0;
+        border-top: none;
+    }
+
+    /* Footer / opening times */
+    .footer-note {
+      text-align: center;
+      margin: var(--section-gap) 0 0;
+      font-weight: 700;
+      background: var(--dark-blue);
+      color: #fff;
+      padding: 0.7rem 1rem;
+      border-radius: 4px;
+      letter-spacing: 0.5px;
+      font-size: 1rem;
+    }
+    .opening-times {
+      text-align: center;
+      margin-top: 0.8rem;
+      font-size: 0.9rem;
+      line-height: 1.6;
+    }
+    .opening-times strong {
+        display: block;
+        font-size: 1rem;
+        color: var(--dark-blue);
+        margin-bottom: 0.2rem;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      .container {
+        padding: 1rem;
+      }
+      .columns.two, .columns.three, .columns.four {
+        grid-template-columns: 1fr; /* Stack columns on smaller screens */
+      }
+      .logo-img {
+        max-width: 80%; /* Smaller logo on very small screens */
+      }
+      body {
+        padding: 1rem 0.5rem;
+        background-size: auto 180px; /* Adjust vertical scale of background for smaller screens */
+      }
+      .section-title {
+        font-size: 1.05rem;
+        padding: 0.4rem 0.8rem;
+      }
+      .kids-meals-box ul {
+        grid-template-columns: 1fr; /* Stack kids meals list on very small screens */
       }
     }
-
-    /* central column */
-    .container{
-      width:100%;
-      max-width: var(--container-width);
-      background: rgba(255,255,255,0.98);
-      padding:1.5rem 1.25rem;
-      border:1px solid var(--border-colour);
-      box-shadow: var(--shadow);
-      border-radius:8px;
-    }
-
-    /* Header / logo */
-    .site-header{
-      display:flex;
-      flex-direction:column;
-      align-items:center;
-      gap:.6rem;
-      margin-bottom:1rem;
-    }
-
-    /* visible logo PNG */
-    .logo-img{
-      width:80%;
-      max-width:480px; /* larger as requested */
-      height:auto;
-      display:block;
-      margin:0 auto;
-    }
-
-    /* hidden h1 for SEO / accessibility if logo is purely graphical */
-    .sr-only{
-      position:absolute;
-      width:1px;
-      height:1px;
-      padding:0;
-      margin:-1px;
-      overflow:hidden;
-      clip:rect(0 0 0 0);
-      white-space:nowrap;
-      border:0;
-    }
-
-    .contact{
-      text-align:center;
-      color:var(--mid-blue);
-      font-size:1rem;
-      margin-bottom:1.25rem;
-      line-height:1.5;
-    }
-    .contact span{display:inline-block; margin:0 .6rem}
-    .contact em{color:var(--dark-blue); font-style:italic; display:block; margin-top:.25rem}
-
-    /* section header */
-    .section-title{
-      background: var(--light-blue);
-      color:#fff;
-      padding:.45rem .75rem;
-      margin: var(--section-gap) 0 .8rem;
-      font-size:1.05rem;
-      border-radius:4px;
-      display:inline-block;
-    }
-
-    /* menu list */
-    .menu-list{list-style:none;padding:0;margin:0}
-    .menu-list li{
-      display:flex;
-      justify-content:space-between;
-      gap:.6rem;
-      padding:.4rem 0;
-      border-bottom:1px dotted var(--border-colour);
-      font-size:.98rem;
-      align-items:flex-start;
-    }
-    .menu-list li:last-child{border-bottom:none}
-    .price{white-space:nowrap;font-weight:700;color:var(--dark-blue)}
-
-    .sub-title{font-weight:700;color:var(--dark-blue);margin-top:.4rem}
-
-    /* responsive grid columns */
-    .columns{display:grid;gap:1rem}
-    .columns.two{grid-template-columns:repeat(2,1fr)}
-    .columns.three{grid-template-columns:repeat(3,1fr)}
-    .columns.four{grid-template-columns:repeat(4,1fr)}
-    @media (max-width:700px){
-      .columns.two,.columns.three,.columns.four{grid-template-columns:1fr}
-      .logo-img{width:65%}
-    }
-
-    .footer-note{
-      text-align:center;
-      margin: var(--section-gap) 0 0;
-      font-weight:700;
-      background:var(--dark-blue);
-      color:#fff;
-      padding:.5rem;
-      border-radius:4px;
-    }
-    .opening-times{text-align:center;margin-top:.5rem;font-size:.94rem}
   </style>
 </head>
 <body>
@@ -156,13 +285,13 @@
       <!-- Visible logo: your uploaded file "Big Joe 2.png" -->
       <img src="Big Joe 2.png" alt="Big Joe's Café logo" class="logo-img">
       <!-- Hidden heading for accessibility / SEO -->
-      <h1 class="sr-only">Big Joe’s Café</h1>
+      <h1 class="sr-only">Big Joe’s Café Menu</h1>
     </header>
 
     <div class="contact" role="contentinfo">
       <p>
         <span>T. 07516 167737</span> |
-        <span>E. bigjoesalcafe@gmail.com</span><br>
+        <span>E. bigjoesa1cafe@gmail.com</span><br>
         <span>106 Upper Commercial Street, WF17 5DP</span><br>
         <em>(Opposite Batley Post Office)</em>
       </p>
@@ -171,37 +300,48 @@
     <!-- MENU: BIG JOE'S BREAKFAST -->
     <div class="section-title">BIG JOE’S BREAKFAST SERVED ALL DAY</div>
     <ul class="menu-list" aria-label="Breakfast menu">
-      <li><span class="sub-title">Small</span></li>
       <li>
-        <span>1 Bacon, 1 Sausage, 1 Egg, Beans, Tomatoes, 1 Toast with a Tea or Coffee</span>
+        <div>
+          <span class="item-name">Small</span>
+          <span class="item-description">1 Bacon, 1 Sausage, 1 Egg, Beans, Tomatoes, 1 Toast with a Tea or Coffee</span>
+        </div>
         <span class="price">£5.50</span>
       </li>
-      <li><span class="sub-title">Medium</span></li>
       <li>
-        <span>2 Bacon, 2 Sausage, 1 Egg, Mushrooms, Hash Brown or Fried Bread, Beans, Tomatoes and 2 Toast with a Tea or Coffee</span>
+        <div>
+          <span class="item-name">Medium</span>
+          <span class="item-description">2 Bacon, 2 Sausage, 1 Egg, Mushrooms, Hash Brown or Fried Bread, Beans, Tomatoes and 2 Toast with a Tea or Coffee</span>
+        </div>
         <span class="price">£8.50</span>
       </li>
-      <li><span class="sub-title">Large</span></li>
       <li>
-        <span>3 Bacon, 2 Sausage, 1 Spam, Eggs, Mushrooms, Black Pudding, 1 Hash Brown, 1 Fried Bread, Beans, Tomatoes and 2 Toast with a Tea or Coffee</span>
+        <div>
+          <span class="item-name">Large</span>
+          <span class="item-description">3 Bacon, 2 Sausage, 1 Spam, Eggs, Mushrooms, Black Pudding, 1 Hash Brown, 1 Fried Bread, Beans, Tomatoes and 2 Toast with a Tea or Coffee</span>
+        </div>
         <span class="price">£10.50</span>
       </li>
-      <li><span class="sub-title">Healthy</span></li>
       <li>
-        <span>2 Lean Bacon, 2 Scrambled Eggs, 1 Grilled Hash Brown, Mushrooms, Beans, Tomatoes and Brown Toast with a Tea or Coffee</span>
+        <div>
+          <span class="item-name">Healthy</span>
+          <span class="item-description">2 Lean Bacon, 2 Scrambled Eggs, 1 Grilled Hash Brown, Mushrooms, Beans, Tomatoes and Brown Toast with a Tea or Coffee</span>
+        </div>
         <span class="price">£7.50</span>
       </li>
     </ul>
 
     <div class="footer-note">EAT IN OR TAKE OUT • PHONE ORDERS WELCOME</div>
-    <div class="opening-times">OPENING TIMES<br>Mon–Fri: 7am – 2pm • Saturday: 7am – 1pm • Sunday: 8.30am – 1pm</div>
+    <div class="opening-times">
+      <strong>OPENING TIMES</strong>
+      Mon–Fri: 7am – 2pm • Saturday: 7am – 1pm • Sunday: 8.30am – 1pm
+    </div>
 
-    <!-- DINNERS, KIDS MEALS, LOADED HASH BROWNS, OMELETTES -->
-    <div class="columns two" style="margin-top:1.6rem;">
+    <!-- DINNERS, KIDS MEALS -->
+    <div class="columns two">
       <!-- DINNERS -->
       <div>
         <div class="section-title">DINNERS</div>
-        <ul class="menu-list">
+        <ul class="menu-list" aria-label="Dinner menu">
           <li><span>3 Sausage or 2 Spam, Chips and Beans</span><span class="price">£6.00</span></li>
           <li><span>Sausage, Mash, Yorkshire Pudding and Onion Gravy</span><span class="price">£7.00</span></li>
           <li><span>Ham, Egg and Chips</span><span class="price">£6.00</span></li>
@@ -212,26 +352,27 @@
       <!-- KIDS MEALS -->
       <div>
         <div class="section-title">KIDS MEALS</div>
-        <p><em>All £3.50 includes a Pop &amp; Lolly</em></p>
-        <p><strong>All Day Breakfast</strong><br>
-           1 Sausage, Bacon or Hash Brown, 1 Egg, Beans &amp; Toast
-        </p>
-        <ul class="menu-list">
-          <li><span>Beans on Toast</span></li>
-          <li><span>Scramble Egg on Toast</span></li>
-          <li><span>Sausage, Chips and Beans</span></li>
-          <li><span>Toasted Cheese Wrap with Salad</span></li>
-          <li><span>Cold Ham Sandwich with Salad</span></li>
-        </ul>
+        <div class="kids-meals-box" aria-label="Kids meal options">
+          <em>All £3.50 includes a Pop &amp; Lolly</em>
+          <strong>All Day Breakfast:</strong>
+          <span class="item-note">1 Sausage, Bacon or Hash Brown, 1 Egg, Beans &amp; Toast</span>
+          <ul class="columns two">
+            <li>Beans on Toast</li>
+            <li>Toasted Cheese Wrap with Salad</li>
+            <li>Scramble Egg on Toast</li>
+            <li>Cold Ham Sandwich with Salad</li>
+            <li>Sausage, Chips and Beans</li>
+          </ul>
+        </div>
       </div>
     </div>
 
     <!-- LOADED HASH BROWNS / OMELETTES -->
-    <div class="columns two" style="margin-top:1.6rem;">
+    <div class="columns two">
       <div>
         <div class="section-title">LOADED HASH BROWN’S</div>
-        <p>4 Golden Crispy Hash Brown’s topped with various fillings</p>
-        <ul class="menu-list">
+        <span class="item-note">4 Golden Crispy Hash Brown’s topped with various fillings</span>
+        <ul class="menu-list" aria-label="Loaded Hash Brown menu">
           <li><span>Bacon, Cheese and Beans</span><span class="price">£5.50</span></li>
           <li><span>Sausage, Cheese and Crispy Onion</span><span class="price">£5.50</span></li>
           <li><span>Cheese, Jalapeño and Red Onion</span><span class="price">£5.50</span></li>
@@ -242,103 +383,121 @@
 
       <div>
         <div class="section-title">OMELETTE’S</div>
-        <p><strong>3 Eggs, Salad or Toast £3.50</strong></p>
-        <ul class="menu-list">
+        <span class="item-name">3 Eggs, Salad or Toast £3.50</span>
+        <ul class="menu-list" aria-label="Omelette add-ons">
           <li><span>Add Salad items</span><span class="price">30p each</span></li>
-          <li><span>Add Meat/Mushrooms etc</span><span class="price">60p each</span></li>
+          <li><span>Add Meat/Mushrooms etc.</span><span class="price">60p each</span></li>
           <li><span>Add Small Chips</span><span class="price">£1.50</span></li>
         </ul>
       </div>
     </div>
 
-    <!-- WRAPS / TOASTIES / SANDWICHES / EXTRAS -->
-    <div class="columns four" style="margin-top:1.6rem;">
-      <!-- TOASTED WRAPS -->
-      <div>
-        <div class="section-title">TOASTED WRAPS</div>
-        <ul class="menu-list">
-          <li><span>Hunter’s Chicken (Crispy Chicken, Bacon, Cheese, BBQ Sauce)</span><span class="price">£6.50</span></li>
-          <li><span>Breakfast Wrap (Sausage, Bacon, Cheese &amp; Beans)</span><span class="price">£5.90</span></li>
-          <li><span>Bacon, Sausage, Tomatoes &amp; Beans</span><span class="price">£5.00</span></li>
-          <li><span>Ham &amp; Cheese</span><span class="price">£5.50</span></li>
-          <li><span>Sausage, Spam, Hash Brown, Bacon &amp; Cheese</span><span class="price">£5.00</span></li>
-          <li><span>Chicken Tikka &amp; Cheese</span><span class="price">£5.50</span></li>
-          <li><span>Make your own from…</span><span class="price">£3.00</span></li>
-        </ul>
-      </div>
+    <!-- WRAPS / TOASTIES / COLD SANDWICH / HOT SANDWICH -->
+    <div class="columns two">
+        <!-- Merged wraps and toasties into one column on 2-column layout to save space -->
+        <div>
+            <div class="section-title">TOASTED WRAPS</div>
+            <ul class="menu-list" aria-label="Toasted Wraps menu">
+              <li>
+                <div>
+                  <span class="item-name">Hunter’s Chicken</span>
+                  <span class="item-description">(Crispy Chicken, Bacon, Cheese, BBQ Sauce)</span>
+                </div>
+                <span class="price">£6.50</span>
+              </li>
+              <li>
+                <div>
+                  <span class="item-name">Breakfast Wrap</span>
+                  <span class="item-description">(Sausage, Bacon, Cheese &amp; Beans)</span>
+                </div>
+                <span class="price">£5.90</span>
+              </li>
+              <li><span>Bacon, Sausage, Tomatoes &amp; Beans</span><span class="price">£5.00</span></li>
+              <li><span>Ham &amp; Cheese</span><span class="price">£5.50</span></li>
+              <li><span>Sausage, Spam, Hash Brown, Bacon &amp; Cheese</span><span class="price">£5.00</span></li>
+              <li><span>Chicken Tikka &amp; Cheese</span><span class="price">£5.50</span></li>
+              <li><span>Make your own from…</span><span class="price">£3.00</span></li>
+            </ul>
 
-      <!-- TOASTIES -->
-      <div>
-        <div class="section-title">TOASTIES</div>
-        <ul class="menu-list">
-          <li><span>Cheese &amp; Onion</span><span class="price">£3.20</span></li>
-          <li><span>Cheese &amp; Beans</span><span class="price">£3.50</span></li>
-          <li><span>Cheese &amp; Jalapeños</span><span class="price">£3.70</span></li>
-          <li><span>Cheese blend</span><span class="price">£4.00</span></li>
-          <li><span>Ham &amp; Cheese</span><span class="price">£3.50</span></li>
-          <li><span>Make your own from…</span><span class="price">£3.20</span></li>
-        </ul>
-      </div>
+            <div class="section-title">TOASTIES</div>
+            <ul class="menu-list" aria-label="Toasties menu">
+              <li><span>Cheese &amp; Onion</span><span class="price">£3.20</span></li>
+              <li><span>Cheese &amp; Beans</span><span class="price">£3.50</span></li>
+              <li><span>Cheese &amp; Jalapeños</span><span class="price">£3.70</span></li>
+              <li><span>Cheese blend</span><span class="price">£4.00</span></li>
+              <li><span>Ham &amp; Cheese</span><span class="price">£3.50</span></li>
+              <li><span>Make your own from…</span><span class="price">£3.20</span></li>
+            </ul>
+        </div>
 
-      <!-- COLD SANDWICH -->
-      <div>
-        <div class="section-title">COLD SANDWICH</div>
-        <ul class="menu-list">
-          <li><span>Ham</span><span class="price">£3.00</span></li>
-          <li><span>Cheese</span><span class="price">£3.00</span></li>
-          <li><span>Beef (Siverside)</span><span class="price">£3.50</span></li>
-          <li><span>Turkey</span><span class="price">£3.50</span></li>
-          <li><span>Chicken Tikka</span><span class="price">£4.50</span></li>
-          <li><span>Add Salad</span><span class="price">50p</span></li>
-          <li><span>Single Item or Salad</span><span class="price">50p</span></li>
-        </ul>
-      </div>
+        <div>
+            <div class="section-title">COLD SANDWICH</div>
+            <ul class="menu-list" aria-label="Cold Sandwich menu">
+              <li><span>Ham</span><span class="price">£3.00</span></li>
+              <li><span>Cheese</span><span class="price">£3.00</span></li>
+              <li><span>Beef (Silverside)</span><span class="price">£3.50</span></li>
+              <li><span>Turkey</span><span class="price">£3.50</span></li>
+              <li><span>Chicken Tikka</span><span class="price">£4.50</span></li>
+              <li><span>Add Salad</span><span class="price">50p</span></li>
+              <li><span>Single Item or Salad</span><span class="price">50p</span></li>
+            </ul>
 
-      <!-- HOT SANDWICH & EXTRAS -->
-      <div>
-        <div class="section-title">HOT SANDWICH</div>
-        <ul class="menu-list">
-          <li><span>Bacon, Sausage or Spam</span><span class="price">£3.50 / Mega £5.00</span></li>
-          <li><span>Bacon &amp; Egg</span><span class="price">£4.10 / £6.20</span></li>
-          <li><span>Spam &amp; Egg</span><span class="price">£4.40 / £6.50</span></li>
-          <li><span>3 Pigs (Bacon, Sausage &amp; Spam)</span><span class="price">£5.00 / £7.50</span></li>
-          <li><span>Bacon &amp; Mushrooms</span><span class="price">£4.10 / £6.20</span></li>
-        </ul>
-
-        <div class="sub-title" style="margin-top:1rem;">EXTRAS</div>
-        <ul class="menu-list">
-          <li><span>Bacon, Sausage or Spam</span><span class="price">£3.50</span></li>
-          <li><span>Black Pudding/ Tomatoes/ Egg/ Mushrooms</span><span class="price">60p each</span></li>
-          <li><span>Hash Browns</span><span class="price">80p each</span></li>
-          <li><span>BLT</span><span class="price">£4.00 / £6.00</span></li>
-        </ul>
-      </div>
+            <div class="section-title">HOT SANDWICH</div>
+            <ul class="menu-list" aria-label="Hot Sandwich menu">
+              <li><span>Bacon, Sausage or Spam</span><span class="price">£3.50<span class="mega-price"> / Mega £5.00</span></span></li>
+              <li><span>Bacon &amp; Egg</span><span class="price">£4.10<span class="mega-price"> / Mega £6.20</span></span></li>
+              <li><span>Spam &amp; Egg</span><span class="price">£4.40<span class="mega-price"> / Mega £6.50</span></span></li>
+              <li><span>3 Pigs (Bacon, Sausage &amp; Spam)</span><span class="price">£5.00<span class="mega-price"> / Mega £7.50</span></span></li>
+              <li><span>Bacon &amp; Mushrooms</span><span class="price">£4.10<span class="mega-price"> / Mega £6.20</span></span></li>
+              <li class="menu-subheader">EXTRAS</li>
+              <li><span>Black Pudding</span><span class="price">60p</span></li>
+              <li><span>Tomatoes</span><span class="price">60p</span></li>
+              <li><span>Egg</span><span class="price">60p</span></li>
+              <li><span>Mushrooms</span><span class="price">60p</span></li>
+              <li><span>Hash Browns</span><span class="price">80p</span></li>
+              <li><span>BLT</span><span class="price">£4.00<span class="mega-price"> / Mega £6.00</span></span></li>
+            </ul>
+        </div>
     </div>
 
+
     <!-- SALAD BOXES / DRINKS / LIGHT SNACKS / JACKETS / BURGERS -->
-    <div class="columns four" style="margin-top:1.6rem;">
+    <div class="columns three"> <!-- Changed to three columns for a more balanced layout -->
       <div>
         <div class="section-title">SALAD BOXES</div>
-        <p><strong>Plain Salad £4.00</strong><br>
-          (Lettuce, Cucumber, Tomatoes, Beetroot, Sweetcorn, Red Onion &amp; Egg)<br>
-          Add: Ham, Cheese, Turkey, Tuna Mayo, Beef, Egg Mayo, Chicken Tikka £1.50
-        </p>
+        <ul class="menu-list" aria-label="Salad Boxes menu">
+            <li>
+                <div>
+                    <span class="item-name">Plain Salad</span>
+                    <span class="item-description">(Lettuce, Cucumber, Tomatoes, Beetroot, Sweetcorn, Red Onion &amp; Egg)</span>
+                </div>
+                <span class="price">£4.00</span>
+            </li>
+            <li class="menu-subheader">Add:</li>
+            <li><span>Ham</span><span class="price">£1.50</span></li>
+            <li><span>Cheese</span><span class="price">£1.50</span></li>
+            <li><span>Turkey</span><span class="price">£1.50</span></li>
+            <li><span>Tuna Mayo</span><span class="price">£1.50</span></li>
+            <li><span>Beef</span><span class="price">£1.50</span></li>
+            <li><span>Egg Mayo</span><span class="price">£1.50</span></li>
+            <li><span>Chicken Tikka</span><span class="price">£1.50</span></li>
+        </ul>
       </div>
 
       <div>
         <div class="section-title">DRINKS</div>
-        <ul class="menu-list">
+        <ul class="menu-list" aria-label="Drinks menu">
           <li><span>Tea/Coffee</span><span class="price">£1.50</span></li>
           <li><span>Decaf Tea/Coffee</span><span class="price">£1.50</span></li>
           <li><span>Latte/Cappuccino/Hot Chocolate</span><span class="price">£2.00</span></li>
-          <li><span>Deluxe Lattes (Cream &amp; Marshmallow)</span><span class="price">£2.50</span></li>
+          <li><span>Deluxe Lattes</span><span class="price">£2.50</span></li>
           <li><span>All cold drinks in fridge</span><span class="price">from £1.00</span></li>
         </ul>
       </div>
 
       <div>
         <div class="section-title">LIGHT SNACKS</div>
-        <ul class="menu-list">
+        <ul class="menu-list" aria-label="Light Snacks menu">
           <li><span>Beans on Toast</span><span class="price">£2.50</span></li>
           <li><span>Scrambled Egg on Toast (2 Eggs)</span><span class="price">£2.50</span></li>
           <li><span>Toasted Currant Tea Cake</span><span class="price">£2.00</span></li>
@@ -352,32 +511,44 @@
 
       <div>
         <div class="section-title">JACKETS</div>
-        <ul class="menu-list">
+        <span class="item-note">All served with a little side salad</span>
+        <ul class="menu-list" aria-label="Jacket Potato menu">
           <li><span>Plain</span><span class="price">£3.50</span></li>
           <li><span>Cheese</span><span class="price">£4.00</span></li>
           <li><span>Cheese &amp; Beans</span><span class="price">£4.50</span></li>
           <li><span>Chicken Tikka</span><span class="price">£5.00</span></li>
           <li><span>Tuna Mayo</span><span class="price">£4.50</span></li>
-          <li><span>Extras Per Portion</span><span class="price">60p</span></li>
+          <li><span class="item-name">Extras Per Portion</span><span class="price">60p</span></li>
         </ul>
       </div>
 
       <div>
         <div class="section-title">BURGERS</div>
-        <ul class="menu-list">
-          <li><span>Combo Burger (Beef Burger &amp; Chicken Fillet)</span><span class="price">£7.50</span></li>
+        <span class="item-note">All served with Lettuce, Tomatoes &amp; Red Onion</span>
+        <ul class="menu-list" aria-label="Burger menu">
+          <li>
+            <div>
+                <span class="item-name">Combo Burger</span>
+                <span class="item-description">(Beef Burger &amp; Chicken Fillet)</span>
+            </div>
+            <span class="price">£7.50</span>
+          </li>
           <li><span>1/4 Beef Burger</span><span class="price">£5.00</span></li>
           <li><span>1/2 Beef Burger</span><span class="price">£6.00</span></li>
           <li><span>Chicken Burger</span><span class="price">£5.50</span></li>
-          <li><span>Jalapeño, Cheese, Fried Onions</span><span class="price">£6.50</span></li>
+          <li>
+            <div>
+                <span class="item-name">Jalapeño, Cheese, Fried Onions</span>
+                <span class="item-description">(on any burger)</span>
+            </div>
+            <span class="price">£6.50</span>
+          </li>
           <li><span>Burger &amp; Egg &amp; Bacon</span><span class="price">£6.00</span></li>
           <li><span>Bacon Cheese Burger</span><span class="price">£6.50</span></li>
-          <li><span>Add Small Chips</span><span class="price">£1.50</span></li>
+          <li><span class="item-name">Add Small Chips</span><span class="price">£1.50</span></li>
         </ul>
-        <p><em>All served with Lettuce, Tomatoes &amp; Red Onion</em></p>
       </div>
     </div>
-
   </div>
 </body>
 </html>
