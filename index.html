@@ -1,746 +1,343 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Big Joe's - Traditional British Cafe</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Big Joe’s Café Menu</title>
+  <style>
+    :root {
+      --dark-blue: #005a9c;
+      --light-blue: #00a9c0;
+      --text-color: #333;
+      --header-bg: #fdfdfd;
+      --section-gap: 2rem;
+      --border-color: #ccc;
+      --dot: "\2022";
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      line-height: 1.4;
+      color: var(--text-color);
+      background: #fafafa;
+      padding: 1rem;
+    }
+    .container {
+      max-width: 900px;
+      margin: auto;
+      background: #fff;
+      padding: 1.5rem;
+      border: 1px solid var(--border-color);
+    }
+    /* Header */
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+    .logo img {
+      height: 60px;
+      object-fit: contain;
+    }
+    .logo h1 {
+      margin: 0;
+      font-size: 2.5rem;
+      color: var(--dark-blue);
+    }
+    .contact {
+      font-size: 0.9rem;
+      margin-bottom: 2rem;
+    }
+    .contact span { display: inline-block; margin-right: 1.5rem; }
 
-        :root {
-            --primary-blue: #0066a6;
-            --light-blue: #4db8e8;
-            --dark-blue: #003d63;
-            --cream: #faf6f2;
-            --gold: #ffd700;
-            --text-dark: #333;
-        }
+    /* Section Headers */
+    .section-title {
+      background: var(--light-blue);
+      color: #fff;
+      padding: 0.5rem 1rem;
+      margin: var(--section-gap) 0 1rem;
+      font-size: 1.2rem;
+    }
+    /* Generic menu list style */
+    .menu-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+    .menu-list li {
+      display: flex;
+      justify-content: space-between;
+      padding: 0.3rem 0;
+      border-bottom: 1px dotted var(--border-color);
+      font-size: 0.95rem;
+    }
+    .menu-list li:last-child { border-bottom: none; }
+    .menu-list li .price {
+      font-weight: bold;
+      white-space: nowrap;
+    }
+    /* Sub-headings within a section */
+    .sub-title {
+      font-weight: bold;
+      color: var(--dark-blue);
+      margin-top: 0.8rem;
+    }
 
-        body {
-            font-family: 'Georgia', serif;
-            line-height: 1.6;
-            color: var(--text-dark);
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-        }
+    /* Multi-column layout */
+    .columns {
+      display: grid;
+      gap: 1rem;
+    }
+    .columns.two  { grid-template-columns: repeat(2, 1fr); }
+    .columns.three{ grid-template-columns: repeat(3, 1fr); }
+    .columns.four { grid-template-columns: repeat(4, 1fr); }
+    @media(max-width: 700px) {
+      .columns.two, .columns.three, .columns.four { grid-template-columns: 1fr; }
+    }
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        /* Header */
-        header {
-            background: linear-gradient(135deg, var(--dark-blue) 0%, var(--primary-blue) 100%);
-            color: white;
-            padding: 2rem 0;
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1000;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
-            backdrop-filter: blur(10px);
-            animation: slideDown 0.5s ease-out;
-        }
-
-        @keyframes slideDown {
-            from {
-                transform: translateY(-100%);
-                opacity: 0;
-            }
-            to {
-                transform: translateY(0);
-                opacity: 1;
-            }
-        }
-
-        .header-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-        }
-
-        .logo {
-            font-size: 2.5rem;
-            font-weight: bold;
-            text-shadow: 3px 3px 6px rgba(0,0,0,0.3);
-            animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-        }
-
-        nav ul {
-            list-style: none;
-            display: flex;
-            gap: 2rem;
-            flex-wrap: wrap;
-        }
-
-        nav a {
-            color: white;
-            text-decoration: none;
-            transition: all 0.3s;
-            padding: 0.5rem 1rem;
-            border-radius: 25px;
-            position: relative;
-            overflow: hidden;
-        }
-
-        nav a::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: rgba(255,255,255,0.2);
-            transition: left 0.3s;
-        }
-
-        nav a:hover::before {
-            left: 0;
-        }
-
-        nav a:hover {
-            background: rgba(255,255,255,0.1);
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-        }
-
-        /* Hero Section */
-        .hero {
-            margin-top: 100px;
-            padding: 4rem 0;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px);
-            background-size: 20px 20px;
-            animation: float 20s linear infinite;
-        }
-
-        @keyframes float {
-            0% { transform: translate(0, 0); }
-            100% { transform: translate(50px, 50px); }
-        }
-
-        .hero h1 {
-            font-size: 3.5rem;
-            margin-bottom: 1rem;
-            animation: fadeInUp 0.8s ease-out;
-            text-shadow: 4px 4px 8px rgba(0,0,0,0.3);
-        }
-
-        .hero p {
-            font-size: 1.5rem;
-            margin-bottom: 2rem;
-            animation: fadeInUp 1s ease-out;
-        }
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .cta-button {
-            display: inline-block;
-            padding: 1rem 2rem;
-            background: linear-gradient(135deg, var(--gold) 0%, #ffed4e 100%);
-            color: var(--dark-blue);
-            text-decoration: none;
-            border-radius: 50px;
-            font-weight: bold;
-            font-size: 1.2rem;
-            transition: all 0.3s;
-            box-shadow: 0 10px 20px rgba(255,215,0,0.3);
-            animation: bounceIn 1.2s ease-out;
-        }
-
-        @keyframes bounceIn {
-            0% { transform: scale(0); }
-            50% { transform: scale(1.1); }
-            100% { transform: scale(1); }
-        }
-
-        .cta-button:hover {
-            transform: translateY(-5px) scale(1.05);
-            box-shadow: 0 15px 30px rgba(255,215,0,0.5);
-        }
-
-        /* Section Styles */
-        section {
-            padding: 4rem 0;
-            background: var(--cream);
-            margin: 2rem 20px;
-            border-radius: 20px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
-            animation: fadeIn 0.8s ease-out;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        h2 {
-            text-align: center;
-            font-size: 2.5rem;
-            color: var(--primary-blue);
-            margin-bottom: 3rem;
-            position: relative;
-            padding-bottom: 1rem;
-        }
-
-        h2::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 100px;
-            height: 4px;
-            background: linear-gradient(90deg, transparent, var(--gold), transparent);
-            animation: shimmer 2s infinite;
-        }
-
-        @keyframes shimmer {
-            0% { width: 50px; }
-            50% { width: 150px; }
-            100% { width: 50px; }
-        }
-
-        /* Menu Grid */
-        .menu-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 2rem;
-        }
-
-        .menu-category {
-            background: white;
-            padding: 2rem;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            transition: all 0.3s;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .menu-category::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 5px;
-            background: linear-gradient(90deg, var(--primary-blue), var(--light-blue));
-            transform: scaleX(0);
-            transition: transform 0.3s;
-        }
-
-        .menu-category:hover::before {
-            transform: scaleX(1);
-        }
-
-        .menu-category:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
-        }
-
-        .menu-category h3 {
-            color: var(--primary-blue);
-            font-size: 1.8rem;
-            margin-bottom: 1.5rem;
-            border-bottom: 2px solid var(--light-blue);
-            padding-bottom: 0.5rem;
-        }
-
-        .menu-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0.8rem 0;
-            border-bottom: 1px dashed #ddd;
-            transition: all 0.3s;
-        }
-
-        .menu-item:hover {
-            background: linear-gradient(90deg, transparent, rgba(77,184,232,0.1), transparent);
-            padding-left: 10px;
-        }
-
-        .menu-item:last-child {
-            border-bottom: none;
-        }
-
-        .price {
-            color: var(--primary-blue);
-            font-weight: bold;
-            font-size: 1.2rem;
-            background: linear-gradient(135deg, var(--gold), #ffed4e);
-            padding: 0.2rem 0.8rem;
-            border-radius: 20px;
-            box-shadow: 0 2px 5px rgba(255,215,0,0.3);
-        }
-
-        /* Contact Section */
-        .contact-info {
-            background: linear-gradient(135deg, var(--primary-blue), var(--light-blue));
-            color: white;
-            padding: 3rem;
-            border-radius: 15px;
-            text-align: center;
-            box-shadow: 0 10px 30px rgba(0,102,166,0.3);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .contact-info::before {
-            content: '☎️';
-            position: absolute;
-            font-size: 10rem;
-            opacity: 0.1;
-            right: -20px;
-            top: -20px;
-            animation: rotate 10s linear infinite;
-        }
-
-        @keyframes rotate {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-
-        .contact-info p {
-            margin: 1rem 0;
-            font-size: 1.2rem;
-        }
-
-        .hours-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1rem;
-            margin-top: 2rem;
-        }
-
-        .hours-card {
-            background: rgba(255,255,255,0.1);
-            padding: 1rem;
-            border-radius: 10px;
-            backdrop-filter: blur(10px);
-            transition: all 0.3s;
-        }
-
-        .hours-card:hover {
-            background: rgba(255,255,255,0.2);
-            transform: scale(1.05);
-        }
-
-        /* Footer */
-        footer {
-            background: var(--dark-blue);
-            color: white;
-            text-align: center;
-            padding: 2rem 0;
-            margin-top: 2rem;
-        }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 2rem;
-            }
-            
-            .menu-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            nav ul {
-                flex-direction: column;
-                gap: 0.5rem;
-            }
-        }
-
-        /* Special banner */
-        .special-banner {
-            background: linear-gradient(45deg, #ff6b6b, #ffd93d);
-            color: white;
-            text-align: center;
-            padding: 1rem;
-            font-size: 1.2rem;
-            font-weight: bold;
-            animation: slideIn 1s ease-out;
-            border-radius: 10px;
-            margin: 2rem 0;
-            box-shadow: 0 5px 15px rgba(255,107,107,0.3);
-        }
-
-        @keyframes slideIn {
-            from {
-                transform: translateX(-100%);
-                opacity: 0;
-            }
-            to {
-                transform: translateX(0);
-                opacity: 1;
-            }
-        }
-    </style>
+    /* Opening times and footer */
+    .footer-note {
+      text-align: center;
+      margin: var(--section-gap) 0 0;
+      font-weight: bold;
+      background: var(--dark-blue);
+      color: #fff;
+      padding: 0.5rem;
+    }
+    .opening-times {
+      text-align: center;
+      margin-top: 0.5rem;
+      font-size: 0.9rem;
+    }
+  </style>
 </head>
 <body>
-    <header>
-        <div class="container">
-            <div class="header-content">
-                <div class="logo">🍳 Big Joe's</div>
-                <nav>
-                    <ul>
-                        <li><a href="#breakfast">Breakfast</a></li>
-                        <li><a href="#menu">Full Menu</a></li>
-                        <li><a href="#kids">Kids Meals</a></li>
-                        <li><a href="#contact">Contact</a></li>
-                    </ul>
-                </nav>
-            </div>
-        </div>
-    </header>
 
-    <div class="hero">
-        <div class="container">
-            <h1>Welcome to Big Joe's</h1>
-            <p>Traditional British Cafe - Serving Happiness Since Morning!</p>
-            <a href="#menu" class="cta-button">View Our Menu</a>
-        </div>
+  <div class="container">
+    <!-- HEADER -->
+    <div class="logo">
+      <!-- replace src with your actual logo if you have one -->
+      <img src="https://via.placeholder.com/80x60?text=Logo" alt="Big Joe's Logo">
+      <h1>Big Joe’s</h1>
+    </div>
+    <div class="contact">
+      <span>T. 07516 167737</span>
+      <span>E. bigjoesalcafe@gmail.com</span><br>
+      <span>106 Upper Commercial Street, WF17 5DP</span><br>
+      <span><em>(Opposite Batley Post Office)</em></span>
     </div>
 
-    <section id="breakfast">
-        <div class="container">
-            <h2>🍳 Big Joe's Breakfast - Served All Day</h2>
-            <div class="special-banner">
-                ⭐ BREAKFAST SERVED ALL DAY - Your Morning Favorites Anytime! ⭐
-            </div>
-            <div class="menu-grid">
-                <div class="menu-category">
-                    <h3>Small Breakfast</h3>
-                    <div class="menu-item">
-                        <span>1 Bacon, 1 Sausage, 1 Egg, Beans, Tomatoes, 1 Toast with Tea or Coffee</span>
-                        <span class="price">£5.50</span>
-                    </div>
-                </div>
-                <div class="menu-category">
-                    <h3>Medium Breakfast</h3>
-                    <div class="menu-item">
-                        <span>2 Bacon, 2 Sausage, 1 Egg, Mushrooms, Hash Brown or Fried Bread, Beans, Tomatoes, 2 Toast with Tea or Coffee</span>
-                        <span class="price">£8.50</span>
-                    </div>
-                </div>
-                <div class="menu-category">
-                    <h3>Large Breakfast</h3>
-                    <div class="menu-item">
-                        <span>3 Bacon, 2 Sausage, 1 Spam, Eggs, Mushrooms, Black Pudding, Hash Brown, Fried Bread, Beans, Tomatoes, 2 Toast with Tea or Coffee</span>
-                        <span class="price">£10.50</span>
-                    </div>
-                </div>
-                <div class="menu-category">
-                    <h3>Healthy Breakfast</h3>
-                    <div class="menu-item">
-                        <span>2 Lean Bacon, 2 Scrambled Eggs, 1 Grilled Hash Brown, Mushrooms, Beans, Tomatoes, Brown Toast with Tea or Coffee</span>
-                        <span class="price">£7.50</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+    <!-- BIG JOE’S BREAKFAST -->
+    <div class="section-title">BIG JOE’S BREAKFAST SERVED ALL DAY</div>
+    <ul class="menu-list">
+      <li><span class="sub-title">Small</span></li>
+      <li>
+        <span>1 Bacon, 1 Sausage, 1 Egg, Beans, Tomatoes, 1 Toast with a Tea or Coffee</span>
+        <span class="price">£5.50</span>
+      </li>
+      <li><span class="sub-title">Medium</span></li>
+      <li>
+        <span>2 Bacon, 2 Sausage, 1 Egg, Mushrooms, Hash Brown or Fried Bread, Beans, Tomatoes and 2 Toast with a Tea or Coffee</span>
+        <span class="price">£8.50</span>
+      </li>
+      <li><span class="sub-title">Large</span></li>
+      <li>
+        <span>3 Bacon, 2 Sausage, 1 Spam, Eggs, Mushrooms, Black Pudding, 1 Hash Brown, 1 Fried Bread, Beans, Tomatoes and 2 Toast with a Tea or Coffee</span>
+        <span class="price">£10.50</span>
+      </li>
+      <li><span class="sub-title">Healthy</span></li>
+      <li>
+        <span>2 Lean Bacon, 2 Scrambled Eggs, 1 Grilled Hash Brown, Mushrooms, Beans, Tomatoes and Brown Toast with a Tea or Coffee</span>
+        <span class="price">£7.50</span>
+      </li>
+    </ul>
 
-    <section id="menu">
-        <div class="container">
-            <h2>🍽️ Full Menu</h2>
-            <div class="menu-grid">
-                <div class="menu-category">
-                    <h3>Dinners</h3>
-                    <div class="menu-item">
-                        <span>3 Sausage or 2 Spam, Chips and Beans</span>
-                        <span class="price">£6.00</span>
-                    </div>
-                    <div class="menu-item">
-                        <span>Sausage, Mash, Yorkshire Pudding and Onion Gravy</span>
-                        <span class="price">£7.00</span>
-                    </div>
-                    <div class="menu-item">
-                        <span>Ham, Egg and Chips</span>
-                        <span class="price">£6.00</span>
-                    </div>
-                    <div class="menu-item">
-                        <span>2 Eggs, Chips and Beans</span>
-                        <span class="price">£6.00</span>
-                    </div>
-                </div>
-                
-                <div class="menu-category">
-                    <h3>Loaded Hash Browns</h3>
-                    <div class="menu-item">
-                        <span>Bacon, Cheese and Beans</span>
-                        <span class="price">£5.50</span>
-                    </div>
-                    <div class="menu-item">
-                        <span>Sausage, Cheese and Crispy Onion</span>
-                        <span class="price">£5.50</span>
-                    </div>
-                    <div class="menu-item">
-                        <span>Cheese, Jalapeño and Red Onion</span>
-                        <span class="price">£5.50</span>
-                    </div>
-                    <div class="menu-item">
-                        <span>Spam, Mushroom, Cheese and Beans</span>
-                        <span class="price">£5.80</span>
-                    </div>
-                    <div class="menu-item">
-                        <span>Chicken Tikka and Cheese</span>
-                        <span class="price">£6.50</span>
-                    </div>
-                </div>
+    <div class="footer-note">EAT IN OR TAKE OUT • PHONE ORDERS WELCOME</div>
+    <div class="opening-times">
+      OPENING TIMES<br>
+      Mon–Fri: 7am – 2pm • Saturday: 7am – 1pm • Sunday: 8.30am – 1pm
+    </div>
 
-                <div class="menu-category">
-                    <h3>Omelettes</h3>
-                    <div class="menu-item">
-                        <span>3 Eggs, Salad or Toast</span>
-                        <span class="price">£3.50</span>
-                    </div>
-                    <div class="menu-item">
-                        <span>Add Salad items</span>
-                        <span class="price">30p each</span>
-                    </div>
-                    <div class="menu-item">
-                        <span>Add Meat/Mushrooms etc.</span>
-                        <span class="price">60p each</span>
-                    </div>
-                    <div class="menu-item">
-                        <span>Add Small Chips</span>
-                        <span class="price">£1.50</span>
-                    </div>
-                </div>
+    <!-- DINNERS, KIDS MEALS, LOADED HASH BROWNS, OMELETTES -->
+    <div class="columns two">
+      <!-- DINNERS -->
+      <div>
+        <div class="section-title">DINNERS</div>
+        <ul class="menu-list">
+          <li><span>3 Sausage or 2 Spam, Chips and Beans</span><span class="price">£6.00</span></li>
+          <li><span>Sausage, Mash, Yorkshire Pudding and Onion Gravy</span><span class="price">£7.00</span></li>
+          <li><span>Ham, Egg and Chips</span><span class="price">£6.00</span></li>
+          <li><span>2 Eggs, Chips and Beans</span><span class="price">£6.00</span></li>
+        </ul>
+      </div>
+      <!-- KIDS MEALS -->
+      <div>
+        <div class="section-title">KIDS MEALS</div>
+        <p><em>All £3.50 includes a Pop & Lolly</em></p>
+        <p><strong>All Day Breakfast</strong><br>
+           1 Sausage, Bacon or Hash Brown, 1 Egg, Beans & Toast
+        </p>
+        <ul class="menu-list">
+          <li><span>Beans on Toast</span></li>
+          <li><span>Scramble Egg on Toast</span></li>
+          <li><span>Sausage, Chips and Beans</span></li>
+          <li><span>Toasted Cheese Wrap with Salad</span></li>
+          <li><span>Cold Ham Sandwich with Salad</span></li>
+        </ul>
+      </div>
+    </div>
 
-                <div class="menu-category">
-                    <h3>Burgers</h3>
-                    <div class="menu-item">
-                        <span>Beef Burger</span>
-                        <span class="price">£4.00</span>
-                    </div>
-                    <div class="menu-item">
-                        <span>Bacon & Egg</span>
-                        <span class="price">£4.50</span>
-                    </div>
-                    <div class="menu-item">
-                        <span>Double Egg</span>
-                        <span class="price">£4.50</span>
-                    </div>
-                    <div class="menu-item">
-                        <span>Chicken Fillet</span>
-                        <span class="price">£5.00</span>
-                    </div>
-                </div>
+    <div class="columns two">
+      <!-- LOADED HASH BROWNS -->
+      <div>
+        <div class="section-title">LOADED HASH BROWN’S</div>
+        <p>4 Golden Crispy Hash Brown’s topped with various fillings</p>
+        <ul class="menu-list">
+          <li><span>Bacon, Cheese and Beans</span><span class="price">£5.50</span></li>
+          <li><span>Sausage, Cheese and Crispy Onion</span><span class="price">£5.50</span></li>
+          <li><span>Cheese, Jalapeño and Red Onion</span><span class="price">£5.50</span></li>
+          <li><span>Spam, Mushroom, Cheese and Beans</span><span class="price">£5.80</span></li>
+          <li><span>Chicken Tikka and Cheese</span><span class="price">£6.50</span></li>
+        </ul>
+      </div>
+      <!-- OMELETTE’S -->
+      <div>
+        <div class="section-title">OMELETTE’S</div>
+        <p><strong>3 Eggs, Salad or Toast £3.50</strong></p>
+        <ul class="menu-list">
+          <li><span>Add Salad items</span><span class="price">30p each</span></li>
+          <li><span>Add Meat/Mushrooms etc</span><span class="price">60p each</span></li>
+          <li><span>Add Small Chips</span><span class="price">£1.50</span></li>
+        </ul>
+      </div>
+    </div>
 
-                <div class="menu-category">
-                    <h3>Salad Boxes</h3>
-                    <div class="menu-item">
-                        <span>Ham, Cheese, Turkey, Tuna Mayo, Beef</span>
-                        <span class="price">£4.00</span>
-                    </div>
-                    <div class="menu-item">
-                        <span>Plain Salad</span>
-                        <span class="price">£2.00</span>
-                    </div>
-                    <div class="menu-item">
-                        <span>Add Mayo, Chicken Tikka</span>
-                        <span class="price">£1.00</span>
-                    </div>
-                </div>
+    <!-- WRAPS / TOASTIES / SANDWICHES / EXTRAS -->
+    <div class="columns four">
+      <!-- TOASTED WRAPS -->
+      <div>
+        <div class="section-title">TOASTED WRAPS</div>
+        <ul class="menu-list">
+          <li><span>Hunter’s Chicken  (Crispy Chicken, Bacon, Cheese, BBQ Sauce)</span><span class="price">£6.50</span></li>
+          <li><span>Breakfast Wrap (Sausage, Bacon, Cheese & Beans)</span><span class="price">£5.90</span></li>
+          <li><span>Bacon, Sausage, Tomatoes & Beans</span><span class="price">£5.00</span></li>
+          <li><span>Ham & Cheese</span><span class="price">£5.50</span></li>
+          <li><span>Sausage, Spam, Hash Brown, Bacon & Cheese</span><span class="price">£5.00</span></li>
+          <li><span>Chicken Tikka & Cheese</span><span class="price">£5.50</span></li>
+          <li><span>Make your own from…</span><span class="price">£3.00</span></li>
+        </ul>
+      </div>
+      <!-- TOASTIES -->
+      <div>
+        <div class="section-title">TOASTIES</div>
+        <ul class="menu-list">
+          <li><span>Cheese & Onion</span><span class="price">£3.20</span></li>
+          <li><span>Cheese & Beans</span><span class="price">£3.50</span></li>
+          <li><span>Cheese & Jalapeños</span><span class="price">£3.70</span></li>
+          <li><span>Cheese blend</span><span class="price">£4.00</span></li>
+          <li><span>Ham & Cheese</span><span class="price">£3.50</span></li>
+          <li><span>Make your own from…</span><span class="price">£3.20</span></li>
+        </ul>
+      </div>
+      <!-- COLD SANDWICH -->
+      <div>
+        <div class="section-title">COLD SANDWICH</div>
+        <ul class="menu-list">
+          <li><span>Ham</span><span class="price">£3.00</span></li>
+          <li><span>Cheese</span><span class="price">£3.00</span></li>
+          <li><span>Beef (Siverside)</span><span class="price">£3.50</span></li>
+          <li><span>Turkey</span><span class="price">£3.50</span></li>
+          <li><span>Chicken Tikka</span><span class="price">£4.50</span></li>
+          <li><span>Add Salad</span><span class="price">50p</span></li>
+          <li><span>Single Item or Salad</span><span class="price">50p</span></li>
+        </ul>
+      </div>
+      <!-- HOT SANDWICH & EXTRAS -->
+      <div>
+        <div class="section-title">HOT SANDWICH</div>
+        <ul class="menu-list">
+          <li><span>Bacon, Sausage or Spam</span><span class="price">£3.50 / Mega £5.00</span></li>
+          <li><span>Bacon & Egg</span><span class="price">£4.10 / £6.20</span></li>
+          <li><span>Spam & Egg</span><span class="price">£4.40 / £6.50</span></li>
+          <li><span>3 Pigs (Bacon, Sausage & Spam)</span><span class="price">£5.00 / £7.50</span></li>
+          <li><span>Bacon & Mushrooms</span><span class="price">£4.10 / £6.20</span></li>
+        </ul>
+        <div class="sub-title" style="margin-top:1rem;">EXTRAS</div>
+        <ul class="menu-list">
+          <li><span>Bacon, Sausage or Spam</span><span class="price">£3.50</span></li>
+          <li><span>Black Pudding/ Tomatoes/ Egg/ Mushrooms</span><span class="price">60p each</span></li>
+          <li><span>Hash Browns</span><span class="price">80p each</span></li>
+          <li><span>BLT</span><span class="price">£4.00 / £6.00</span></li>
+        </ul>
+      </div>
+    </div>
 
-                <div class="menu-category">
-                    <h3>Light Snacks</h3>
-                    <div class="menu-item">
-                        <span>Beans on Toast</span>
-                        <span class="price">£2.50</span>
-                    </div>
-                    <div class="menu-item">
-                        <span>Scrambled Egg on Toast</span>
-                        <span class="price">£3.00</span>
-                    </div>
-                    <div class="menu-item">
-                        <span>Toasted Current Teacake</span>
-                        <span class="price">£2.00</span>
-                    </div>
-                    <div class="menu-item">
-                        <span>Toast per Slice</span>
-                        <span class="price">60p</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+    <!-- SALAD BOXES / DRINKS / LIGHT SNACKS / JACKETS / BURGERS -->
+    <div class="columns four" style="margin-top:2rem;">
+      <!-- SALAD BOXES -->
+      <div>
+        <div class="section-title">SALAD BOXES</div>
+        <p><strong>Plain Salad £4.00</strong><br>
+          (Lettuce, Cucumber, Tomatoes, Beetroot, Sweetcorn, Red Onion & Egg)<br>
+          Add: Ham, Cheese, Turkey, Tuna Mayo, Beef, Egg Mayo, Chicken Tikka £1.50
+        </p>
+      </div>
+      <!-- DRINKS -->
+      <div>
+        <div class="section-title">DRINKS</div>
+        <ul class="menu-list">
+          <li><span>Tea/Coffee</span><span class="price">£1.50</span></li>
+          <li><span>Decaf Tea/Coffee</span><span class="price">£1.50</span></li>
+          <li><span>Latte/Cappuccino/Hot Chocolate</span><span class="price">£2.00</span></li>
+          <li><span>Deluxe Lattes (Cream & Marshmallow)</span><span class="price">£2.50</span></li>
+          <li><span>All cold drinks in fridge</span><span class="price">from £1.00</span></li>
+        </ul>
+      </div>
+      <!-- LIGHT SNACKS -->
+      <div>
+        <div class="section-title">LIGHT SNACKS</div>
+        <ul class="menu-list">
+          <li><span>Beans on Toast</span><span class="price">£2.50</span></li>
+          <li><span>Scrambled Egg on Toast (2 Eggs)</span><span class="price">£2.50</span></li>
+          <li><span>Toasted Currant Tea Cake</span><span class="price">£2.00</span></li>
+          <li><span>Chicken Tikka & Cheese on Chips</span><span class="price">£5.50</span></li>
+          <li><span>Chip Butty</span><span class="price">£3.00</span></li>
+          <li><span>Chips Cheese or Gravy</span><span class="price">£3.50</span></li>
+          <li><span>Chips Marmalade on Toast</span><span class="price">£1.30</span></li>
+          <li><span>Toast per Slice</span><span class="price">50p</span></li>
+        </ul>
+      </div>
+      <!-- JACKETS -->
+      <div>
+        <div class="section-title">JACKETS</div>
+        <ul class="menu-list">
+          <li><span>Plain</span><span class="price">£3.50</span></li>
+          <li><span>Cheese</span><span class="price">£4.00</span></li>
+          <li><span>Cheese & Beans</span><span class="price">£4.50</span></li>
+          <li><span>Chicken Tikka</span><span class="price">£5.00</span></li>
+          <li><span>Tuna Mayo</span><span class="price">£4.50</span></li>
+          <li><span>Extras Per Portion</span><span class="price">60p</span></li>
+        </ul>
+      </div>
+      <!-- BURGERS -->
+      <div>
+        <div class="section-title">BURGERS</div>
+        <ul class="menu-list">
+          <li><span>Combo Burger (Beef Burger & Chicken Fillet)</span><span class="price">£7.50</span></li>
+          <li><span>1/4 Beef Burger</span><span class="price">£5.00</span></li>
+          <li><span>1/2 Beef Burger</span><span class="price">£6.00</span></li>
+          <li><span>Chicken Burger</span><span class="price">£5.50</span></li>
+          <li><span>Jalapeño, Cheese, Fried Onions</span><span class="price">£6.50</span></li>
+          <li><span>Burger & Egg & Bacon</span><span class="price">£6.00</span></li>
+          <li><span>Bacon Cheese Burger</span><span class="price">£6.50</span></li>
+          <li><span>Add Small Chips</span><span class="price">£1.50</span></li>
+        </ul>
+        <p><em>All served with Lettuce, Tomatoes & Red Onion</em></p>
+      </div>
+    </div>
 
-    <section id="kids">
-        <div class="container">
-            <h2>🎈 Kids Meals</h2>
-            <div class="special-banner">
-                All Kids Meals £3.50 - Includes a Pop & Lolly! 🍭
-            </div>
-            <div class="menu-grid">
-                <div class="menu-category">
-                    <h3>Kids Favorites</h3>
-                    <div class="menu-item">
-                        <span>All Day Breakfast</span>
-                        <span class="price">£3.50</span>
-                    </div>
-                    <div class="menu-item">
-                        <span>1 Sausage, Bacon or Hash Brown, 1 Egg, Beans & Toast</span>
-                        <span class="price">£3.50</span>
-                    </div>
-                    <div class="menu-item">
-                        <span>Beans on Toast</span>
-                        <span class="price">£3.50</span>
-                    </div>
-                    <div class="menu-item">
-                        <span>Scramble Egg on Toast</span>
-                        <span class="price">£3.50</span>
-                    </div>
-                    <div class="menu-item">
-                        <span>Sausage, Chips and Beans</span>
-                        <span class="price">£3.50</span>
-                    </div>
-                    <div class="menu-item">
-                        <span>Toasted Cheese Wrap with Salad</span>
-                        <span class="price">£3.50</span>
-                    </div>
-                    <div class="menu-item">
-                        <span>Cold Ham Sandwich with Salad</span>
-                        <span class="price">£3.50</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="contact">
-        <div class="container">
-            <h2>📍 Visit Us</h2>
-            <div class="contact-info">
-                <h3>Big Joe's Cafe</h3>
-                <p>📍 106 Upper Commercial Street, WF17 5DP</p>
-                <p>(Opposite Batley Post Office)</p>
-                <p>📞 07516 167737</p>
-                <p>✉️ Bigjoesa1cafe@gmail.com</p>
-                
-                <div class="hours-grid">
-                    <div class="hours-card">
-                        <strong>Monday - Friday</strong>
-                        <p>7:00 AM - 2:00 PM</p>
-                    </div>
-                    <div class="hours-card">
-                        <strong>Saturday</strong>
-                        <p>7:00 AM - 1:00 PM</p>
-                    </div>
-                    <div class="hours-card">
-                        <strong>Sunday</strong>
-                        <p>8:30 AM - 1:00 PM</p>
-                    </div>
-                </div>
-            </div>
-            <div class="special-banner" style="margin-top: 2rem;">
-                🚗 EAT IN OR TAKE OUT • PHONE ORDERS WELCOME 📞
-            </div>
-        </div>
-    </section>
-
-    <footer>
-        <div class="container">
-            <p>&copy; 2024 Big Joe's Cafe. All rights reserved.</p>
-            <p>Traditional British Cafe - Serving Quality Since Day One</p>
-        </div>
-    </footer>
-
-    <script>
-        // Smooth scrolling for navigation links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
-            });
-        });
-
-        // Add animation on scroll
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.animation = 'fadeInUp 0.6s ease-out forwards';
-                }
-            });
-        }, observerOptions);
-
-        document.querySelectorAll('.menu-category').forEach(el => {
-            observer.observe(el);
-        });
-
-        // Add hover effect to menu items
-        document.querySelectorAll('.menu-item').forEach(item => {
-            item.addEventListener('mouseenter', function() {
-                this.style.transform = 'translateX(10px)';
-            });
-            item.addEventListener('mouseleave', function() {
-                this.style.transform = 'translateX(0)';
-            });
-        });
-
-        // Dynamic greeting based on time
-        const updateGreeting = () => {
-            const hour = new Date().getHours();
-            const heroText = document.querySelector('.hero p');
-            
-            if (hour < 12) {
-                heroText.textContent = "Start Your Day Right with Our Famous Full English!";
-            } else if (hour < 14) {
-                heroText.textContent = "Lunch Time! Try Our Loaded Hash Browns!";
-            } else {
-                heroText.textContent = "Traditional British Cafe - Serving Happiness Since Morning!";
-            }
-        };
-
-        updateGreeting();
-    </script>
+  </div>
 </body>
 </html>
