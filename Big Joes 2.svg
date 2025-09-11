@@ -1,5 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="300" height="122" viewBox="0 0 300 122" font-family="Arial, sans-serif" font-weight="bold">
-<rect width="100%" height="100%" fill="black" />
+  <rect width="100%" height="100%" fill="black" />
+  <g id=logo>
   <g transform="translate(0,122) scale(0.1,-0.1)" fill="white" stroke="none">
 <path d="M546 1078c-14-46-34-117-44-158-11-41-28-91-40-110-71-122-67-299 11-432 24-42 98-117 144-148 22-15 23-16 8-70-19-69-19-70 3-70 14 0 23 24 47 128 52 222 40 310-60 422-53 59-81 114-91 177-5 32 2 72 31 175 21 73 42 141 47 151 7 13 5 17-11 17-17 0-25-15-45-82zm-17-364c19-36 49-82 67-101 44-46 76-115 81-172 5-55-18-183-34-188-22-8-130 111-164 182-32 65-34 76-34 170 1 76 5 109 19 138 10 20 21 37 25 37 3 0 21-30 40-66z"/>
   <path 
@@ -32,4 +33,5 @@
 </g>
 <text x="190" y="60" font-size="60" text-anchor="middle" fill="white">Big</text>
 <text x="215" y="115" font-size="60" text-anchor="middle" fill="white">Joe's</text>
+</g>
 </svg>
