@@ -28,7 +28,7 @@
     stroke="white" 
     stroke-width="32" 
     fill="none"/>
-<ellipse cx="1922" cy="240" rx="75" ry="150" stroke="white" stroke-width="18" fill="none"/>
+<ellipse cx="1922" cy="240" rx="75" ry="150" stroke="white" stroke-width="15" fill="none"/>
 </g>
 <text x="190" y="60" font-size="60" text-anchor="middle" fill="white">Big</text>
 <text x="215" y="115" font-size="60" text-anchor="middle" fill="white">Joe's</text>
