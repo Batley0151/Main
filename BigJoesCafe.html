@@ -163,6 +163,275 @@
         border-radius: 8px;
         box-shadow: 0 10px 30px rgba(0,0,0,0.15);
     }
+
+        /* Section title styling */
+        .section-title {
+            background: linear-gradient(135deg, var(--dark-blue) 0%, var(--accent-blue) 100%);
+            color: #fff;
+            padding: 0.7rem 1.5rem;
+            margin: var(--section-gap) 0 1.2rem;
+            font-size: 1.1rem;
+            font-weight: 700;
+            border-radius: 6px;
+            display: inline-block;
+            letter-spacing: 0.5px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            transition: transform 0.3s ease;
+        }
+
+        .section-title:hover {
+            transform: translateY(-2px);
+        }
+
+        /* Menu list styles */
+        .menu-list {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 1.5rem 0;
+        }
+
+        .menu-list li {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 1rem;
+            padding: 0.7rem 0.5rem;
+            border-bottom: 1px dotted var(--border-colour);
+            font-size: 0.95rem;
+            transition: background-color 0.3s ease;
+        }
+
+        .menu-list li:hover {
+            background-color: rgba(27, 187, 226, 0.05);
+            border-radius: 4px;
+        }
+
+        .menu-list li:last-child {
+            border-bottom: none;
+        }
+
+        .menu-list li > div {
+            flex-grow: 1;
+        }
+
+        .item-name {
+            font-weight: 600;
+            color: var(--dark-blue);
+            display: block;
+            margin-bottom: 0.2em;
+        }
+
+        .item-description, .item-note {
+            font-size: 0.88rem;
+            color: #666;
+            display: block;
+            line-height: 1.4;
+        }
+
+        .price {
+            white-space: nowrap;
+            font-weight: 700;
+            color: var(--accent-blue);
+            margin-left: auto;
+            font-size: 1rem;
+        }
+
+        .mega-price {
+            font-size: 0.85em;
+            opacity: 0.8;
+            margin-left: 0.4em;
+        }
+
+        /* Kids Meals special section */
+        .kids-meals-box {
+            background: linear-gradient(135deg, #eaf6fb 0%, #dff0f9 100%);
+            border: 2px solid #cce7f5;
+            border-radius: 8px;
+            padding: 1.2rem 1.5rem;
+            margin-top: 1rem;
+            margin-bottom: var(--section-gap);
+            box-shadow: 0 4px 12px rgba(27, 187, 226, 0.15);
+        }
+
+        .kids-meals-box em {
+            display: block;
+            font-style: normal;
+            font-weight: 700;
+            color: var(--accent-blue);
+            margin-bottom: 0.8rem;
+            font-size: 1.05rem;
+        }
+
+        .kids-meals-box strong {
+            color: var(--dark-blue);
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .kids-meals-box ul {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 0.6rem 1.5rem;
+        }
+
+        .kids-meals-box ul li {
+            padding: 0.3rem 0;
+            border-bottom: none;
+            font-size: 0.9rem;
+            color: #555;
+        }
+
+        .kids-meals-box ul li:hover {
+            background: none;
+        }
+
+        /* Grid columns for sections */
+        .columns {
+            display: grid;
+            gap: 2rem;
+            margin-top: var(--section-gap);
+        }
+
+        .columns.two {
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+        }
+
+        .columns.three {
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        }
+
+        /* Section containers with subtle cards */
+        .columns > div {
+            background: var(--light-bg);
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .columns > div:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+        }
+
+        /* Sub-headers within lists */
+        .menu-subheader {
+            font-weight: 700;
+            color: var(--dark-blue);
+            margin-top: 1rem;
+            margin-bottom: 0.5rem;
+            padding-top: 0.5rem;
+            border-top: 1px dotted var(--border-colour);
+        }
+
+        .menu-subheader:first-child {
+            margin-top: 0;
+            padding-top: 0;
+            border-top: none;
+        }
+
+        /* Footer sections */
+        .footer-note {
+            text-align: center;
+            margin: 2rem 0 0;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--dark-blue) 0%, var(--hover-blue) 100%);
+            color: #fff;
+            padding: 1rem 1.5rem;
+            border-radius: 8px;
+            letter-spacing: 0.5px;
+            font-size: 1.05rem;
+            box-shadow: 0 6px 20px rgba(10, 74, 124, 0.25);
+        }
+
+        .opening-times {
+            text-align: center;
+            margin-top: 1rem;
+            font-size: 0.95rem;
+            line-height: 1.8;
+            color: #555;
+        }
+
+        .opening-times strong {
+            display: block;
+            font-size: 1.1rem;
+            color: var(--dark-blue);
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+        }
+
+        /* Breakfast menu special styling */
+        .breakfast-menu {
+            background: linear-gradient(135deg, #fff8f0 0%, #fff5e6 100%);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 12px rgba(255, 215, 0, 0.1);
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .header-section {
+                flex-direction: column;
+            }
+
+            .left-section {
+                flex: 1;
+                width: 100%;
+            }
+
+            .map-frame {
+                height: 250px;
+            }
+
+            .container {
+                padding: 1.5rem;
+            }
+
+            .columns.two, .columns.three {
+                grid-template-columns: 1fr;
+            }
+
+            .logo-img {
+                max-width: 300px;
+            }
+
+            body {
+                padding: 1rem 0.5rem;
+            }
+
+            .section-title {
+                font-size: 1rem;
+                padding: 0.5rem 1rem;
+            }
+
+            .kids-meals-box ul {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header-section {
+                gap: 1rem;
+            }
+
+            .columns > div {
+                padding: 1rem;
+            }
+
+            .footer-note {
+                font-size: 0.95rem;
+                padding: 0.8rem 1rem;
+            }
+
+            .qr-code {
+                width: 100px;
+            }
+        }
+    </style>
 </head>
 <body>
     <!-- Animated background -->
