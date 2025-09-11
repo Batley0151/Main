@@ -5,61 +5,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Big Joe's Café - Traditional British Cafe</title>
     <style>
-    /* ==== GLOBAL RESET & BODY ==== */
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    html, body { height: 100%; overflow-x: hidden; font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif; line-height: 1.6; color: #333; }
-    
-    /* Remove the static body background – the SVG pattern will be the sole background */
-    body {
-        background: transparent; /* No fallback image – SVG pattern handles it */
-        position: relative;
-        min-height: 100vh;
+    body, html {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      background: url('Big Joes 2.svg') no-repeat center center fixed;
+      background-size: cover;
+      color: white;
+      overflow-x: hidden;
     }
 
-    /* ==== SVG PATTERN BACKGROUND (fixed, full-screen, slow top-left drift) ==== */
-    .background-container {
-        position: fixed;   /* Sticks to viewport, behind everything */
-        top: 0; left: 0;
-        width: 100%; height: 100%;
-        z-index: 0;        /* Behind content (z-index 1) */
-        pointer-events: none; /* Allows clicks through to content */
-        overflow: hidden;
+    .content {
+      position: relative;
+      z-index: 1;
+      color: white;
+      text-align: center;
+      padding-top: 200px;
+      font-size: 2rem;
     }
 
-    .pattern {
-        position: absolute;
-        inset: 0; /* top/right/bottom/left:0 → full container */
-        background: url('Big Joes 2.svg') repeat; /* Tile the SVG */
-        background-size: 200px 200px; /* Tile size – adjust if your SVG cell differs */
-        opacity: 0.3; /* Subtle overlay */
-        /* Slow diagonal drift → top-left (pattern shifts down-right → visible tiles move up-left) */
-        animation: driftTopLeft 120s linear infinite;
-    }
-
-    @keyframes driftTopLeft {
-        0%   { background-position: 0 0; }       /* Start at normal top-left */
-        100% { background-position: 200px 200px; } /* Shift one full tile → seamless loop */
-    }
-
-    /* ==== OPTIONAL: Slightly faster/slower or diagonal angle ==== */
-    /* For a pure-left drift: background-position: 200px 0 */
-    /* For a 45°-ish top-left: use 200px 200px (as above) */
-    /* Speed: 120s = 2 min per tile (very slow). Use 60s for faster. */
-
-    /* ==== CONTENT CONTAINER (on top of background) ==== */
-    .container {
-        position: relative;
-        z-index: 1; /* Above pattern */
-        width: 100%;
-        max-width: var(--container-width);
-        background: rgba(245, 240, 232, 0.98); /* Light semi-transparent card */
-        padding: 2rem;
-        margin: 0 auto;
-        border-radius: 12px;
-        box-shadow: var(--shadow);
-    }
-
-    /* ---- CSS VARIABLES (unchanged) ---- */
+    /* CSS Variables for consistent styling */
     :root {
         --dark-blue: #0a4a7c;
         --accent-blue: #1bbbe2;
@@ -68,33 +33,391 @@
         --section-gap: 1.8rem;
         --border-colour: #e0e0e0;
         --shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
-        --light-bg: #f5f0e8;
+        --light-bg: #f5f0e8; /* Light grey with slight orange tint */
         --hover-blue: #0066a6;
     }
 
-    /* ---- ALL OTHER STYLES (unchanged, only minor fixes below) ---- */
-    /* ... (Your existing styles for .header-section, .section-title, .menu-list, etc.) ... */
-    /* No changes needed – they remain exactly as you provided */
-
-    /* Fix: QR code had duplicate class */
-    /* (Handled in HTML – see class="qr-code") */
-
-    /* Responsive tweaks (unchanged) */
-    @media (max-width: 768px) {
-        /* ... your existing media queries ... */
+    /* Reset & basics */
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
     }
-    @media (max-width: 480px) {
-        /* ... your existing media queries ... */
+
+    html, body {
+        height: 100%;
+        overflow-x: hidden;
     }
+
+    body {
+        font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+        line-height: 1.6;
+        color: var(--text-colour);
+        min-height: 100vh;
+        position: relative;
+    }
+
+    /* Container for the menu content */
+    .container {
+        width: 100%;
+        max-width: var(--container-width);
+        background: rgba(245, 240, 232, 0.98); /* Light grey with slight orange tint */
+        padding: 2rem;
+        margin: 0 auto;
+        border-radius: 12px;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+        position: relative;
+    }
+
+    /* Top section with logo/contact and map */
+    .header-section {
+        display: flex;
+        gap: 2rem;
+        margin-bottom: 2rem;
+        padding-bottom: 2rem;
+        border-bottom: 3px solid var(--accent-blue);
+    }
+
+    .left-section {
+        flex: 0 0 45%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .right-section {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      aspect-ratio: 1 / 1;
+    }
+
+    /* QR Code styling */
+    .qr-code {
+        margin-top: 1rem;
+        width: 120px;
+        height: auto;
+        border: 2px solid var(--accent-blue);
+        border-radius: 8px;
+        padding: 5px;
+        background: white;
+    }
+
+    /* Logo styling */
+    .logo-img {
+        width: 100%;
+        max-width: 400px;
+        height: auto;
+        display: block;
+        margin-bottom: 1.5rem;
+        filter: drop-shadow(0 4px 8px rgba(0,0,0,0.1));
+    }
+
+    /* Contact information */
+    .contact {
+        text-align: center;
+        color: var(--dark-blue);
+        font-size: 0.95rem;
+        line-height: 1.8;
+    }
+
+    .contact p {
+        margin: 0;
+    }
+
+    .contact span {
+        display: inline-block;
+        margin: 0 0.5rem;
+    }
+
+    .contact em {
+        color: var(--accent-blue);
+        font-style: normal;
+        display: block;
+        margin-top: 0.5rem;
+        font-weight: 500;
+    }
+
+    /* Map styling */
+    .map-frame {
+        width: 100%;
+        height: 350px;
+        border: 0;
+        border-radius: 8px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+    }
+
+        /* Section title styling */
+        .section-title {
+            background: linear-gradient(135deg, var(--dark-blue) 0%, var(--accent-blue) 100%);
+            color: #fff;
+            padding: 0.7rem 1.5rem;
+            margin: var(--section-gap) 0 1.2rem;
+            font-size: 1.1rem;
+            font-weight: 700;
+            border-radius: 6px;
+            display: inline-block;
+            letter-spacing: 0.5px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            transition: transform 0.3s ease;
+        }
+
+        .section-title:hover {
+            transform: translateY(-2px);
+        }
+
+        /* Menu list styles */
+        .menu-list {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 1.5rem 0;
+        }
+
+        .menu-list li {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 1rem;
+            padding: 0.7rem 0.5rem;
+            border-bottom: 1px dotted var(--border-colour);
+            font-size: 0.95rem;
+            transition: background-color 0.3s ease;
+        }
+
+        .menu-list li:hover {
+            background-color: rgba(27, 187, 226, 0.05);
+            border-radius: 4px;
+        }
+
+        .menu-list li:last-child {
+            border-bottom: none;
+        }
+
+        .menu-list li > div {
+            flex-grow: 1;
+        }
+
+        .item-name {
+            font-weight: 600;
+            color: var(--dark-blue);
+            display: block;
+            margin-bottom: 0.2em;
+        }
+
+        .item-description, .item-note {
+            font-size: 0.88rem;
+            color: #666;
+            display: block;
+            line-height: 1.4;
+        }
+
+        .price {
+            white-space: nowrap;
+            font-weight: 700;
+            color: var(--accent-blue);
+            margin-left: auto;
+            font-size: 1rem;
+        }
+
+        .mega-price {
+            font-size: 0.85em;
+            opacity: 0.8;
+            margin-left: 0.4em;
+        }
+
+        /* Kids Meals special section */
+        .kids-meals-box {
+            background: linear-gradient(135deg, #eaf6fb 0%, #dff0f9 100%);
+            border: 2px solid #cce7f5;
+            border-radius: 8px;
+            padding: 1.2rem 1.5rem;
+            margin-top: 1rem;
+            margin-bottom: var(--section-gap);
+            box-shadow: 0 4px 12px rgba(27, 187, 226, 0.15);
+        }
+
+        .kids-meals-box em {
+            display: block;
+            font-style: normal;
+            font-weight: 700;
+            color: var(--accent-blue);
+            margin-bottom: 0.8rem;
+            font-size: 1.05rem;
+        }
+
+        .kids-meals-box strong {
+            color: var(--dark-blue);
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .kids-meals-box ul {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 0.6rem 1.5rem;
+        }
+
+        .kids-meals-box ul li {
+            padding: 0.3rem 0;
+            border-bottom: none;
+            font-size: 0.9rem;
+            color: #555;
+        }
+
+        .kids-meals-box ul li:hover {
+            background: none;
+        }
+
+        /* Grid columns for sections */
+        .columns {
+            display: grid;
+            gap: 2rem;
+            margin-top: var(--section-gap);
+        }
+
+        .columns.two {
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+        }
+
+        .columns.three {
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        }
+
+        /* Section containers with subtle cards */
+        .columns > div {
+            background: var(--light-bg);
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .columns > div:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+        }
+
+        /* Sub-headers within lists */
+        .menu-subheader {
+            font-weight: 700;
+            color: var(--dark-blue);
+            margin-top: 1rem;
+            margin-bottom: 0.5rem;
+            padding-top: 0.5rem;
+            border-top: 1px dotted var(--border-colour);
+        }
+
+        .menu-subheader:first-child {
+            margin-top: 0;
+            padding-top: 0;
+            border-top: none;
+        }
+
+        /* Footer sections */
+        .footer-note {
+            text-align: center;
+            margin: 2rem 0 0;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--dark-blue) 0%, var(--hover-blue) 100%);
+            color: #fff;
+            padding: 1rem 1.5rem;
+            border-radius: 8px;
+            letter-spacing: 0.5px;
+            font-size: 1.05rem;
+            box-shadow: 0 6px 20px rgba(10, 74, 124, 0.25);
+        }
+
+        .opening-times {
+            text-align: center;
+            margin-top: 1rem;
+            font-size: 0.95rem;
+            line-height: 1.8;
+            color: #555;
+        }
+
+        .opening-times strong {
+            display: block;
+            font-size: 1.1rem;
+            color: var(--dark-blue);
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+        }
+
+        /* Breakfast menu special styling */
+        .breakfast-menu {
+            background: linear-gradient(135deg, #fff8f0 0%, #fff5e6 100%);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 12px rgba(255, 215, 0, 0.1);
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .header-section {
+                flex-direction: column;
+            }
+
+            .left-section {
+                flex: 1;
+                width: 100%;
+            }
+
+            .map-frame {
+                height: 250px;
+            }
+
+            .container {
+                padding: 1.5rem;
+            }
+
+            .columns.two, .columns.three {
+                grid-template-columns: 1fr;
+            }
+
+            .logo-img {
+                max-width: 300px;
+            }
+
+            body {
+                padding: 1rem 0.5rem;
+            }
+
+            .section-title {
+                font-size: 1rem;
+                padding: 0.5rem 1rem;
+            }
+
+            .kids-meals-box ul {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header-section {
+                gap: 1rem;
+            }
+
+            .columns > div {
+                padding: 1rem;
+            }
+
+            .footer-note {
+                font-size: 0.95rem;
+                padding: 0.8rem 1rem;
+            }
+
+            .qr-code {
+                width: 100px;
+            }
+        }
     </style>
 </head>
 <body>
-    <!-- Fixed full-screen SVG pattern background (slow top-left drift) -->
-    <div class="background-container">
-        <div class="pattern"></div>
-    </div>
-
-    <!-- Main content card (z-index 1, semi-transparent) -->
     <div class="container">
         <!-- Header section with logo/contact (left) and map (right) -->
         <div class="header-section">
@@ -102,18 +425,18 @@
                 <img src="Big Joe 2.png" alt="Big Joe's Café" class="logo-img">
                 <div class="contact">
                     <p>
-                        <span>🍴 Eat in or Collect</span>
+                        <span>🍴Eat in or Collect</span>
                         <strong>📞 07516 167737</strong><br>
                         <span>📧 bigjoesa1cafe@gmail.com</span><br>
                         <span>📍 106 Upper Commercial Street, WF17 5DP</span>
-                        <span><strong>⏰ OPENING TIMES</strong> Monday-Friday: 7am - 2pm • Saturday: 7am - 1pm • Sunday: 8.30am - 1pm</span>
-                    </p>
+                        <span><strong>⏰ OPENING TIMES</strong> Monday-Friday: 7am - 2pm • Saturday: 7am - 1pm • Sunday: 8.30am - 1pm</p>
+                    </span>
                 </div>
-                <!-- Fixed duplicate class -->
-                <img src="Big Joe QR code 4.png" alt="Big Joe's QR Code" class="qr-code">
+                <img src="Big Joe QR code 4.png" alt="Big Joe's QR Code" class="qr-code" class="logo-img">
             </div>
             <div class="right-section">
-                <iframe class="map-frame" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2413.8903602188094!2d-1.636600384375636!3d53.714699799999996!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x487be1a8cfb38125%3A0xaab123b293042de0!2sBig%20Joe's%20Cafe!5e0!3m2!1sen!2suk!4v1704903845123!5m2!1sen!2suk" loading="lazy" allowfullscreen referrerpolicy="no-referrer" title="Big Joe's Cafe location on Google Maps"></iframe>
+                <iframe class="map-frame" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2413.8903602188094!2d-1.636600384375636!3d53.714699799999996!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x487be1a8cfb38125%3A0xaab123b293042de0!2sBig%20Joe's%20Cafe!5e0!3m2!1sen!2suk!4v1704903845123!5m2!1sen!2suk" loading="lazy" allowfullscreen referrerpolicy="no-referrer" title="Big Joe's Cafe location on Google Maps">
+                </iframe>
             </div>
         </div>
 
@@ -121,10 +444,34 @@
         <div class="breakfast-menu">
             <div class="section-title">🍳 BIG JOE'S BREAKFAST SERVED ALL DAY</div>
             <ul class="menu-list">
-                <li><div><span class="item-name">Small</span><span class="item-description">1 Bacon, 1 Sausage, 1 Egg, Beans, Tomatoes, 1 Toast with a Tea or Coffee</span></div><span class="price">£5.50</span></li>
-                <li><div><span class="item-name">Medium</span><span class="item-description">2 Bacon, 2 Sausage, 1 Egg, Mushrooms, Hash Brown or Fried Bread, Beans, Tomatoes and 2 Toast with a Tea or Coffee</span></div><span class="price">£8.50</span></li>
-                <li><div><span class="item-name">Large</span><span class="item-description">3 Bacon, 2 Sausage, 1 Spam, Eggs, Mushrooms, Black Pudding, 1 Hash Brown, 1 Fried Bread, Beans, Tomatoes and 2 Toast with a Tea or Coffee</span></div><span class="price">£10.50</span></li>
-                <li><div><span class="item-name">Healthy</span><span class="item-description">2 Lean Bacon, 2 Scrambled Eggs, 1 Grilled Hash Brown, Mushrooms, Beans, Tomatoes and Brown Toast with a Tea or Coffee</span></div><span class="price">£7.50</span></li>
+                <li>
+                    <div>
+                        <span class="item-name">Small</span>
+                        <span class="item-description">1 Bacon, 1 Sausage, 1 Egg, Beans, Tomatoes, 1 Toast with a Tea or Coffee</span>
+                    </div>
+                    <span class="price">£5.50</span>
+                </li>
+                <li>
+                    <div>
+                        <span class="item-name">Medium</span>
+                        <span class="item-description">2 Bacon, 2 Sausage, 1 Egg, Mushrooms, Hash Brown or Fried Bread, Beans, Tomatoes and 2 Toast with a Tea or Coffee</span>
+                    </div>
+                    <span class="price">£8.50</span>
+                </li>
+                <li>
+                    <div>
+                        <span class="item-name">Large</span>
+                        <span class="item-description">3 Bacon, 2 Sausage, 1 Spam, Eggs, Mushrooms, Black Pudding, 1 Hash Brown, 1 Fried Bread, Beans, Tomatoes and 2 Toast with a Tea or Coffee</span>
+                    </div>
+                    <span class="price">£10.50</span>
+                </li>
+                <li>
+                    <div>
+                        <span class="item-name">Healthy</span>
+                        <span class="item-description">2 Lean Bacon, 2 Scrambled Eggs, 1 Grilled Hash Brown, Mushrooms, Beans, Tomatoes and Brown Toast with a Tea or Coffee</span>
+                    </div>
+                    <span class="price">£7.50</span>
+                </li>
             </ul>
         </div>
 
@@ -160,7 +507,7 @@
         <div class="columns two">
             <div>
                 <div class="section-title">🥔 LOADED HASH BROWN'S</div>
-                <span class="item-note" style="display:block;margin:-0.5rem 0 1rem;color:#666;font-size:0.9rem;">4 Golden Crispy Hash Brown's topped with various fillings</span>
+                <span class="item-note" style="display: block; margin: -0.5rem 0 1rem 0; color: #666; font-size: 0.9rem;">4 Golden Crispy Hash Brown's topped with various fillings</span>
                 <ul class="menu-list">
                     <li><span>Bacon, Cheese and Beans</span><span class="price">£5.50</span></li>
                     <li><span>Sausage, Cheese and Crispy Onion</span><span class="price">£5.50</span></li>
@@ -171,7 +518,7 @@
             </div>
             <div>
                 <div class="section-title">🍳 OMELETTE'S</div>
-                <span class="item-name" style="display:block;margin-bottom:1rem;">3 Eggs, Salad or Toast £3.50</span>
+                <span class="item-name" style="display: block; margin-bottom: 1rem;">3 Eggs, Salad or Toast £3.50</span>
                 <ul class="menu-list">
                     <li><span>Add Salad items</span><span class="price">30p each</span></li>
                     <li><span>Add Meat/Mushrooms etc.</span><span class="price">60p each</span></li>
@@ -185,15 +532,27 @@
             <div>
                 <div class="section-title">🌯 TOASTED WRAPS</div>
                 <ul class="menu-list">
-                    <li><div><span class="item-name">Hunter's Chicken</span><span class="item-description">(Crispy Chicken, Bacon, Cheese, BBQ Sauce)</span></div><span class="price">£6.50</span></li>
-                    <li><div><span class="item-name">Breakfast Wrap</span><span class="item-description">(Sausage, Bacon, Cheese & Beans)</span></div><span class="price">£5.90</span></li>
+                    <li>
+                        <div>
+                            <span class="item-name">Hunter's Chicken</span>
+                            <span class="item-description">(Crispy Chicken, Bacon, Cheese, BBQ Sauce)</span>
+                        </div>
+                        <span class="price">£6.50</span>
+                    </li>
+                    <li>
+                        <div>
+                            <span class="item-name">Breakfast Wrap</span>
+                            <span class="item-description">(Sausage, Bacon, Cheese & Beans)</span>
+                        </div>
+                        <span class="price">£5.90</span>
+                    </li>
                     <li><span>Bacon, Sausage, Tomatoes & Beans</span><span class="price">£5.00</span></li>
                     <li><span>Ham & Cheese</span><span class="price">£5.50</span></li>
                     <li><span>Sausage, Spam, Hash Brown, Bacon & Cheese</span><span class="price">£5.00</span></li>
                     <li><span>Chicken Tikka & Cheese</span><span class="price">£5.50</span></li>
                     <li><span>Make your own from...</span><span class="price">£3.00</span></li>
                 </ul>
-                <div class="section-title" style="margin-top:2rem;">🧀 TOASTIES</div>
+                <div class="section-title" style="margin-top: 2rem;">🧀 TOASTIES</div>
                 <ul class="menu-list">
                     <li><span>Cheese & Onion</span><span class="price">£3.20</span></li>
                     <li><span>Cheese & Beans</span><span class="price">£3.50</span></li>
@@ -214,7 +573,7 @@
                     <li><span>Add Salad</span><span class="price">50p</span></li>
                     <li><span>Single Item or Salad</span><span class="price">50p</span></li>
                 </ul>
-                <div class="section-title" style="margin-top:2rem;">🔥 HOT SANDWICH</div>
+                <div class="section-title" style="margin-top: 2rem;">🔥 HOT SANDWICH</div>
                 <ul class="menu-list">
                     <li><span>Bacon, Sausage or Spam</span><span class="price">£3.50<span class="mega-price"> / Mega £5.00</span></span></li>
                     <li><span>Bacon & Egg</span><span class="price">£4.10<span class="mega-price"> / Mega £6.20</span></span></li>
@@ -228,7 +587,7 @@
                     <li class="menu-subheader">EXTRAS</li>
                     <li><span>Beans</span><span class="price">30p<span class="mega-price"> / 50p</span></span></li>
                     <li><span>Tomatoe</span><span class="price">30p<span class="mega-price"> / 50p</span></span></li>
-                    <li><span>Black Pudding / Meat / Egg / Mushrooms</span><span class="price">60p</span></li>
+                  <li><span>Black Pudding / Meat / Egg / Mushrooms</span><span class="price">60p</span></li>
                     <li><span>Hash Browns</span><span class="price">80p</span></li>
                 </ul>
             </div>
@@ -239,13 +598,19 @@
             <div>
                 <div class="section-title">🥗 SALAD BOXES</div>
                 <ul class="menu-list">
-                    <li><div><span class="item-name">Plain Salad</span><span class="item-description">(Lettuce, Cucumber, Tomatoes, Beetroot, Sweetcorn, Red Onion & Egg)</span></div><span class="price">£4.00</span></li>
+                    <li>
+                        <div>
+                            <span class="item-name">Plain Salad</span>
+                            <span class="item-description">(Lettuce, Cucumber, Tomatoes, Beetroot, Sweetcorn, Red Onion & Egg)</span>
+                        </div>
+                        <span class="price">£4.00</span>
+                    </li>
                     <li class="menu-subheader">Add:</li>
                     <li><span>Ham / Cheese / Turkey</span><span class="price">£1.50</span></li>
                     <li><span>Tuna Mayo / Beef / Egg Mayo</span><span class="price">£1.50</span></li>
                     <li><span>Chicken Tikka</span><span class="price">£1.50</span></li>
                 </ul>
-                <div class="section-title" style="margin-top:2rem;">☕ DRINKS</div>
+                <div class="section-title" style="margin-top: 2rem;">☕ DRINKS</div>
                 <ul class="menu-list">
                     <li><span>Tea/Coffee</span><span class="price">£1.50</span></li>
                     <li><span>Decaf Tea/Coffee</span><span class="price">£1.50</span></li>
@@ -266,8 +631,8 @@
                     <li><span>Marmalade on Toast</span><span class="price">£1.30</span></li>
                     <li><span>Toast per Slice</span><span class="price">50p</span></li>
                 </ul>
-                <div class="section-title" style="margin-top:2rem;">🥔 JACKETS</div>
-                <span class="item-note" style="display:block;margin:-0.5rem 0 1rem;">All served with a little side salad</span>
+                <div class="section-title" style="margin-top: 2rem;">🥔 JACKETS</div>
+                <span class="item-note" style="display: block; margin: -0.5rem 0 1rem 0;">All served with a little side salad</span>
                 <ul class="menu-list">
                     <li><span>Plain</span><span class="price">£3.50</span></li>
                     <li><span>Cheese</span><span class="price">£4.00</span></li>
@@ -279,13 +644,25 @@
             </div>
             <div>
                 <div class="section-title">🍔 BURGERS</div>
-                <span class="item-note" style="display:block;margin:-0.5rem 0 1rem;">All served with Lettuce, Tomatoes & Red Onion</span>
+                <span class="item-note" style="display: block; margin: -0.5rem 0 1rem 0;">All served with Lettuce, Tomatoes & Red Onion</span>
                 <ul class="menu-list">
-                    <li><div><span class="item-name">Combo Burger</span><span class="item-description">(Beef Burger & Chicken Fillet)</span></div><span class="price">£7.50</span></li>
+                    <li>
+                        <div>
+                            <span class="item-name">Combo Burger</span>
+                            <span class="item-description">(Beef Burger & Chicken Fillet)</span>
+                        </div>
+                        <span class="price">£7.50</span>
+                    </li>
                     <li><span>1/4 Beef Burger</span><span class="price">£5.00</span></li>
                     <li><span>1/2 Beef Burger</span><span class="price">£6.00</span></li>
                     <li><span>Chicken Burger</span><span class="price">£5.50</span></li>
-                    <li><div><span class="item-name">Jalapeño, Cheese, Fried Onions</span><span class="item-description">(on any burger)</span></div><span class="price">£6.50</span></li>
+                    <li>
+                        <div>
+                            <span class="item-name">Jalapeño, Cheese, Fried Onions</span>
+                            <span class="item-description">(on any burger)</span>
+                        </div>
+                        <span class="price">£6.50</span>
+                    </li>
                     <li><span>Burger & Egg & Bacon</span><span class="price">£6.00</span></li>
                     <li><span>Bacon Cheese Burger</span><span class="price">£6.50</span></li>
                     <li><span class="item-name">Add Small Chips</span><span class="price">£1.50</span></li>
@@ -293,13 +670,11 @@
             </div>
         </div>
 
-        <!-- Footer note (moved inside .container) -->
+        <!-- Footer -->
         <div class="footer-note">
             Place an order at the till or on the phone in advance 07516 167737. We're excited to see you.
         </div>
-        <div class="opening-times">
-            This website was created by a Batley local resident, Abdul Alim, voluntarily. Big Joe's Cafe is an important Cafe to Batley's community with great food, warm staff members and much loved by the locals. All rights are reserved by the owners.
-        </div>
+        This website was created by a Batley local resident, Abdul Alim, voluntarily. Big Joe's Cafe is an important Cafe to Batley's community with great food, warm staff members and much loved by the locals. All rights are reserved by the owners.
     </div>
 </body>
 </html>
