@@ -15,8 +15,8 @@
         <text x="190" y="60" font-size="60" text-anchor="middle" fill="red">Big</text>
         <text x="215" y="115" font-size="60" text-anchor="middle" fill="red">Joe's</text>
       </g>
-      <animate attributeName="x" values="0;-300;0" dur="30s" repeatCount="indefinite" />
-      <animate attributeName="y" values="0;-122;0" dur="30s" repeatCount="indefinite" />
+      <animate attributeName="x" values="0;-100000" dur="6000s" repeatCount="indefinite" />
+      <animate attributeName="y" values="0;-48800" dur="6000s" repeatCount="indefinite" />
     </pattern>
   </defs>
 
