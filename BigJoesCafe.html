@@ -84,19 +84,26 @@
         flex-direction: column;
         align-items: center;
     }
-
+.left-section .contact {
+    text-align: center;
+    line-height: 1.5;
+}
     .right-section {
       flex: 1;
       display: flex;
       align-items: center;
       justify-content: center;
-      aspect-ratio: 1 / 1;
     }
-
+.right-section .map-frame {
+    width: 100%;
+    height: 400px; /* adjust height as needed */
+    border: 0;
+    aspect-ratio: 1 / 1;
+}
     /* QR Code styling */
     .qr-code {
         margin-top: 1rem;
-        width: 120px;
+        width: 600px;
         height: auto;
         border: 2px solid var(--accent-blue);
         border-radius: 8px;
@@ -425,17 +432,21 @@
                 <img src="Big Joe 2.png" alt="Big Joe's Café" class="logo-img">
                 <div class="contact">
                     <p>
-                        <span>🍴Eat in or Collect</span>
-                        <strong>📞 07516 167737</strong><br>
-                        <span>📧 bigjoesa1cafe@gmail.com</span><br>
-                        <span>📍 106 Upper Commercial Street, WF17 5DP</span>
-                        <span><strong>⏰ OPENING TIMES</strong> Monday-Friday: 7am - 2pm • Saturday: 7am - 1pm • Sunday: 8.30am - 1pm</p>
-                    </span>
-                </div>
+<p><strong>🍴 Eat in or Collect</strong></p>
+            <p><strong>📞 07516 167737</strong></p>
+            <p>📧 bigjoesa1cafe@gmail.com</p>
+            <p>📍 106 Upper Commercial Street, WF17 5DP</p>
+            <p><strong>⏰ OPENING TIMES</strong> Monday-Friday: 7am - 2pm • Saturday: 7am - 1pm • Sunday: 8.30am - 1pm</p>
+        </div>
             </div>
             <div class="right-section">
-                <iframe class="map-frame" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2413.8903602188094!2d-1.636600384375636!3d53.714699799999996!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x487be1a8cfb38125%3A0xaab123b293042de0!2sBig%20Joe's%20Cafe!5e0!3m2!1sen!2suk!4v1704903845123!5m2!1sen!2suk" loading="lazy" allowfullscreen referrerpolicy="no-referrer" title="Big Joe's Cafe location on Google Maps">
-                </iframe>
+        <iframe class="map-frame" 
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2413.8903602188094!2d-1.636600384375636!3d53.714699799999996!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x487be1a8cfb38125%3A0xaab123b293042de0!2sBig%20Joe's%20Cafe!5e0!3m2!1sen!2suk!4v1704903845123!5m2!1sen!2suk" 
+                loading="lazy" 
+                allowfullscreen 
+                referrerpolicy="no-referrer" 
+                title="Big Joe's Cafe location on Google Maps">
+        </iframe>
             </div>
         </div>
 
@@ -534,7 +545,7 @@
                 </ul>
             </div>
             <div>
-                <div class="section-title"><img src="Big Joe QR code 4.png" alt="Big Joe's QR Code" class="qr-code" class="logo-img"></div>
+                <div class="section-title"><img src="Big Joe QR code 4.png" alt="Big Joe's QR Code" class="qr-code"></div>
 
                 </div>
             </div>
